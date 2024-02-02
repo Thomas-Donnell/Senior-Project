@@ -1,0 +1,32 @@
+{% extends 'students/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="contentwrapper">
+        <div id="content">
+            <div id="classtitle"><h2>{{my_class.class_name}}</h2></div>
+            <div id="tagwrapper">
+                <a class="tags" href="{% url 'students:discussion' courseId %}">
+                    {% if alerts > 0 %}
+                        <div id="alerts">
+                            {{alerts}}
+                        </div>
+                    {% endif %}
+                    Discussions
+                </a>
+                <a class="tags" href="">Content</a>
+                <a class="tags" href="{% url 'students:quizHub' courseId %}">Quizzes</a>
+                <a class="tags" href="{% url 'students:studentView' courseId %}">Grades</a>
+                <span>{{courseId}}</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/course.js' %}"></script>
+{% endblock %}

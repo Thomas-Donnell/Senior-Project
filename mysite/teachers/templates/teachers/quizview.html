@@ -1,0 +1,114 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/quizview.css' %}">
+{% endblock %}
+
+{% block content %}
+    <a class="backbtn" href="{% url 'teachers:quiz' quiz.id courseId%}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 18h3.75a5.25 5.25 0 1 0 0-10.5H5M7.5 4L4 7.5L7.5 11"/></svg></a>
+    <a class="backbtn" id="homebtn" href="{% url 'teachers:course' courseId%}"><svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="currentColor" d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3c0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8c24.9-25 24.9-65.5-.1-90.5z"/></svg></a>
+    <div id="coursediv">
+        <div class="form-wrapper">
+            <form action="" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <label for="message" class="textarea-label"> Quiz Creation</label>
+                <div class="textarea">
+                    <textarea
+                        rows="4"
+                        name="question"
+                        id="message"
+                        placeholder="Enter Question Here!"
+                        class="textarea-input"
+                    ></textarea>
+                </div>
+                <input
+                    type="text"
+                    name="option1"
+                    id="subject"
+                    placeholder="Option 1"
+                    class="textarea-input"
+                />
+                <input
+                    type="text"
+                    name="option2"
+                    id="subject"
+                    placeholder="Option 2"
+                    class="textarea-input"
+                />
+                <input
+                    type="text"
+                    name="option3"
+                    id="subject"
+                    placeholder="Option 3"
+                    class="textarea-input"
+                />
+                <input
+                    type="text"
+                    name="option4"
+                    id="subject"
+                    placeholder="Option 4"
+                    class="textarea-input"
+                />
+                <label for="correct_answer">Correct Answer:</label>
+                <select id="correct-answer" name="correct_answer" required>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                </select><br>
+                <button class="btn">
+                    Add Question
+                </button>
+                <button type="button" class="btn" id="cancel">
+                    Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+    <div id="contentwrapper">
+        <div id="content">
+            <div id="wrapper">
+                <h2>{{quiz.title}}</h2>
+                <div id="quiz-wrapper">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for question in questions %}
+                            <div class="questions">
+                                <h3>Question {{ forloop.counter }}</h3>
+                                <p>{{ question.question_text }}</p>
+                                {% if question.option1 %}
+                                    <label>
+                                        <input type="radio" name="answer" value="1"> {{ question.option1 }}
+                                    </label><br>
+                                {% endif %}
+                                {% if question.option2 %}
+                                    <label>
+                                        <input type="radio" name="answer" value="2"> {{ question.option2 }}
+                                    </label><br>
+                                {% endif %}
+                                {% if question.option3 %}
+                                    <label>
+                                        <input type="radio" name="answer" value="3"> {{ question.option3 }}
+                                    </label><br>
+                                {% endif %}
+                                {% if question.option4 %}
+                                    <label>
+                                        <input type="radio" name="answer" value="4"> {{ question.option4 }}
+                                    </label><br>
+                                {% endif %}
+                            </div>
+
+                        {% endfor %}
+                        
+                    </form>
+                </div>
+                <div id="add-question">Add Question</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'teachers/js/quizview.js' %}"></script>
+{% endblock %}

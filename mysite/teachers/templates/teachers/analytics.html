@@ -1,0 +1,37 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/analytics.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="coursediv">
+    <div id="grades-wrapper" >
+        {% for student in students %}
+            <div class="grades" data-class-studentId= "{{ student.id }}">
+                <span>{{student.username}}</span> 
+            </div>
+        {% endfor %}
+    </div>
+    <div id="close">Close</div>
+</div>
+<div id="contentwrapper">
+    <div id="content">
+        <div class="student-button" id="search-students">Search By Students</div>
+        <div class="analytics-wrapper">
+            {% for grade in grades %}
+                {% if grade.grades %}
+                    <h1 class="course-title">{{grade.course.class_name}}</h1>
+                    <canvas class="pie-chart" id="chart-{{ grade.course.id }}" ></canvas>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'teachers/js/analytics.js' %}"></script>
+
+{% endblock %}

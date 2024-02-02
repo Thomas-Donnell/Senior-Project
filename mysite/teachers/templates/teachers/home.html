@@ -1,0 +1,61 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}ELearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/teacher.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="addbtn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="white" d="M6.5 1.75a.75.75 0 0 0-1.5 0V5H1.75a.75.75 0 0 0 0 1.5H5v3.25a.75.75 0 0 0 1.5 0V6.5h3.25a.75.75 0 0 0 0-1.5H6.5V1.75Z"/></svg></div>
+    <div id="coursediv" class="wrapper">
+        <div class="wrapper">
+            <h2>Create A Class</h2>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="input-box">
+                    <input type="text" name="class_name"  placeholder="Class Name" value="">
+                </div>
+                <div class="input-box">
+                    <input type="text" name="descriptor"  placeholder="Descriptor" value="" >
+                </div>
+                <div class="select-box">
+                    <label for="year">Year:</label>
+                    <select name="year" id="id_year">
+                        <!-- JavaScript will populate the years dynamically -->
+                    </select>
+                </div>
+                <div class="select-box">
+                    <label for="term">Term:</label>
+                    <select name="term" ">
+                        <option value="Fall">Fall</option>
+                        <option value="Fall">Winter</option>
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                        <!-- Add more terms as needed -->
+                    </select>
+                </div>
+                <div class="input-box button">
+                    <input type="Submit" value="Create">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="contentwrapper">
+        <div id="content">
+            {% if classes %}
+                    {% for class in classes %}
+                        <div class="cards" data-class-id= "{{ class.id }}" >
+                            <span>{{ class.class_descriptor }}</span>
+                            <span>{{ class.class_name }}</span>
+                            <span>{{ class.teacher.username }}</span>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <span id="noclasses">No Classes have been added</span>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{% static 'teachers/js/home.js' %}"></script>
+{% endblock %}

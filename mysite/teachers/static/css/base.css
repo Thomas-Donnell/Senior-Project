@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: #d3d3d3;
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #0C1A25;
+  }
+  
+  .navbar {
+    display: flex;
+    padding: 0 10px;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar input#menu-toggler {
+    display: none;
+  }
+  
+  .navbar #hamburger-btn {
+    cursor: pointer;
+    display: none;
+  }
+  
+  .navbar .all-links {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .all-links li {
+    position: relative;
+    list-style: none;
+  }
+  
+  .navbar .logo a {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+  }
+  #bell-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar svg:hover{
+    cursor: pointer;
+  }
+  header a, header span, header svg, header form {
+    margin-left: 40px;
+    text-decoration: none;
+    color: #fff;
+    height: 100%;
+    padding: 20px 0;
+    display: inline-block;
+  }
+  #username {
+    white-space: pre;
+  }
+  
+  header a:hover, footer a:hover, header svg {
+    color: #ddd;
+  }
+
+  .backbtn{
+    position: fixed;
+    top: 100px;
+    left: 50px;
+    padding: 10px;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  #homebtn{
+    top:160px;
+  }
+
+  .backbtn svg{
+    height: 40px;
+    width: 40px;
+    color: black;
+  }
+  .backbtn svg:hover{
+    color: #a7a7a7;
+  }
+
+  #delete-btn{
+    position: fixed;
+    top: 100px;
+    right: 50px;
+    background: #FF4742;
+    padding: 10px;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  #delete-btn:hover{
+    background-color: #be3531;
+    box-shadow: 5px 5px #333;
+  }
+  #delete-btn svg{
+    height: 25px;
+    width: 25px;
+  }
+
+  .nav-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-textarea-input {
+    height: 40px;
+    border: none;
+    background: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    color: #07074D;
+    border-radius: 5px;
+  }
+  .nav-btn {
+    height: 40px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    font-weight: 500;
+    background-color: #a7a7a7;
+    color: white;
+    cursor: pointer;
+  }
+  .nav-btn:hover {
+    background-color: #333;
+  }

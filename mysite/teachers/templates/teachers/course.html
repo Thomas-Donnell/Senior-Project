@@ -1,0 +1,75 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}ELearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="coursediv">
+        <form method="post">
+            {% csrf_token %}
+            <div id="formwrapper">
+                {% for user in users %}
+                <div class="inputs">
+                    <label class="users" for="{{ user.user.id }}">{{ user.user.username }}</label>
+                    <span>
+                        <input type="checkbox" id="{{ user.user.id }}" name="enrolled_users" value="{{ user.user.id }}">
+                    </span>
+                    <br>
+                </div>
+
+            {% endfor %}
+            </div>
+            <button id="enrollbtn" class="button" type="submit">Enroll Selected Users</button>
+        </form>
+    </div>
+    <div id="coursediv-alert">
+        <div id="alert-wrapper">
+            <span>Do You Want to Submit Final Grades?</span>
+            <div class="finalgrade-button">
+                <a href="{% url 'teachers:submitGrade' courseId %}" class="close" id="yes">Yes</a>
+                <a href="{% url 'teachers:deleteCourse' courseId %}" class="close">No</a>
+            </div>
+        </div>
+        <div class="close" id="close">Close</div>
+    </div>
+    <div id="coursediv-grades">
+        <div class="grade-modifiers">
+            <select id="sortOrder" onchange="sortStudents()">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+            </select>
+            <span id="average">Weighted Average</span>
+        </div>
+        <div id="grades-wrapper" >
+            {% for student in students %}
+                <div class="grades" data-class-courseId= "{{ courseId }}" data-class-studentId= "{{ student.student.user.id }}">
+                    <span>{{student.student.user.username}}</span> 
+                    <span>{{student.average}}%</span> 
+                </div>
+            {% endfor %}
+        </div>
+        <div class="close">Close</div>
+    </div>
+    <div id="contentwrapper">
+        <div id="content">
+            <div id="classtitle"><h2>{{my_class.class_name}}</h2></div>
+            <div id="tagwrapper">
+                <div id="buttons">
+                    <div class="button" id="delete">Delete</div>
+                    <div class="button" id="addstudents">Add Students</div>
+                </div>
+                <a class="tags" href="{% url 'teachers:discussion' courseId %}">Discussions</a>
+                <a class="tags" href="">Content</a>
+                <a class="tags" href="{% url 'teachers:quizHub' courseId %}">Quizes</a>
+                <div class="tags" id="grades-link">Grades</div>
+                <span>{{courseId}}</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'teachers/js/course.js' %}"></script>
+{% endblock %}

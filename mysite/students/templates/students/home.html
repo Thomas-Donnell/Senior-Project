@@ -1,0 +1,28 @@
+{% extends 'students/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/teacher.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="contentwrapper">
+        <div id="content">
+            {% if classes %}
+                    {% for class in classes %}
+                        <div class="cards" data-class-id= "{{ class.id }}" >
+                            <span>{{ class.class_descriptor }}</span>
+                            <span>{{ class.class_name }}</span>
+                            <span>{{ class.teacher.username }}</span>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <span id="noclasses">No Classes have been added</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{% static 'students/js/home.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Registration </title> 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+   </head>
+<body>
+  <div class="wrapper">
+    <h2>Registration</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+      <div class="input-box">
+        {{form.username}}
+      </div>
+      <div class="input-box">
+        {{form.email}}
+      </div>
+      <div class="input-box">
+        <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" placeholder="Password" >
+      </div>
+      <div class="input-box">
+        <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" placeholder="Confirm Your Password" >
+      </div>
+      <div class="policy">
+        {{account_form.is_teacher}}
+        <h3>I Am A Teacher</h3>
+      </div>
+      <div class="input-box button">
+        <input type="Submit" value="Register Now">
+      </div>
+      <div class="text">
+        <h3>Already have an account? <a href="{% url 'users:loginPage' %}">Login now</a></h3>
+      </div>
+    </form>
+  </div>
+  <div id="error-message">
+    {% if messages %}
+
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+    {% endif %}
+  </div>
+</body>
+</html>

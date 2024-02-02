@@ -1,0 +1,40 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+    <a class="backbtn" href="{{url}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 18h3.75a5.25 5.25 0 1 0 0-10.5H5M7.5 4L4 7.5L7.5 11"/></svg></a>
+    <div id="contentwrapper">
+        <div id="content">
+            <div class="form-wrapper">
+                <form method="post" action="{% url 'teachers:changeUsername' url %}">
+                    {% csrf_token %}
+                    <!-- Username change form fields here -->
+                    <input class="textarea-input" type="text" name="new_username" placeholder="New Username">
+                    <button class="btn" type="submit">Change Username</button>
+                </form>
+                
+                <form method="post" action="{% url 'teachers:changePassword' url %}">
+                    {% csrf_token %}
+                    <input class="textarea-input" type="password" name="old_password" placeholder="Old Password">
+                    <input class="textarea-input" type="password" name="new_password1" placeholder="New Password">
+                    <input class="textarea-input" type="password" name="new_password2" placeholder="Confirm New Password">
+                    <button class="btn" type="submit">Change Password</button>
+                </form>
+            </div>
+            {% if messages %}
+
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{% static 'teachers/js/quizhub.js' %}"></script>
+{% endblock %}

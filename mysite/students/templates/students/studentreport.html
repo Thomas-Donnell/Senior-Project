@@ -1,0 +1,26 @@
+{% extends 'students/base.html' %}
+{% load static %}
+
+{% block title %}Elearn{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/analytics.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="contentwrapper">
+        <div id="content">
+            <div class="barchart-wrapper">
+                <select id="changeTerm" onchange="changeTerm()">
+                    <option value="current">Current</option>
+                    {% for term in terms %}
+                        <option value="{{term}}">{{term}}</option>
+                    {% endfor %}
+                </select>
+                <canvas id="percentile" class="bar-chart"></canvas>
+                <canvas id="grade" class="bar-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'students/js/studentreport.js' %}"></script>
+{% endblock %}
