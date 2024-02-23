@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -179,6 +179,51 @@ def deletePost(request, id, course_id):
     post.delete()
     return redirect(reverse('teachers:discussion', args=[course_id]))
 
+def moduleHub(request, course_id):
+    my_class = MyClass.objects.get(id=course_id)
+    modules = Module.objects.filter(course=my_class).order_by('-created_at')
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        Module.objects.create(
+            title = title,
+            course=my_class, 
+            author=request.user
+        )
+        return redirect(reverse('teachers:moduleHub', args=[course_id]))
+        
+    context = {'courseId': course_id, 'my_class': my_class, 'modules': modules}
+    return render(request, "teachers/modulehub.html", context)
+
+def module(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    context = {"module":module, "courseId":course_id,}
+    return render(request, "teachers/module.html", context)
+
+def moduleView(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    questions = ModuleQuestion.objects.filter(module=module)
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('upload')
+        question = request.POST.get('question')
+        option1 = request.POST.get('option1')
+        option2 = request.POST.get('option2')
+        option3 = request.POST.get('option3')
+        option4 = request.POST.get('option4')
+        correct_answer = request.POST.get('correct_answer')
+        ModuleQuestion.objects.create(
+            module = module,
+            image = uploaded_file,
+            question_text=question, 
+            option1=option1,
+            option2=option2,
+            option3=option3,
+            option4=option4,
+            correct_answer= correct_answer
+        )
+        return redirect(reverse('teachers:moduleView', args=[id, course_id]))
+    context = {"questions":questions, "module":module, "courseId":course_id}
+    return render(request, "teachers/moduleview.html", context)
+
 def quizHub(request, course_id):
     my_class = MyClass.objects.get(id=course_id)
     quizes = Quiz.objects.filter(course=my_class).order_by('-created_at')
@@ -260,6 +305,11 @@ def deleteQuiz(requqest, id, course_id):
     quiz = Quiz.objects.get(pk=id)
     quiz.delete()
     return redirect(reverse('teachers:quizHub', args=[course_id]))
+
+def deleteModule(requqest, id, course_id):
+    module = Module.objects.get(pk=id)
+    module.delete()
+    return redirect(reverse('teachers:moduleHub', args=[course_id]))
 
 def settings(request, url):
     context = {"url":url}

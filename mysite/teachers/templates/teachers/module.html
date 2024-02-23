@@ -1,0 +1,32 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+{% endblock %}
+
+{% block content %}
+    <a id="delete-btn" href="{% url 'teachers:deleteModule' module.id courseId%}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg>
+    </a>
+    <a class="backbtn" href="{% url 'teachers:moduleHub' courseId%}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 18h3.75a5.25 5.25 0 1 0 0-10.5H5M7.5 4L4 7.5L7.5 11"/></svg></a>
+    <a class="backbtn" id="homebtn" href="{% url 'teachers:course' courseId%}"><svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="currentColor" d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3c0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8c24.9-25 24.9-65.5-.1-90.5z"/></svg></a>
+    <div id="coursediv">
+        <!-- put progress/ grades here -->
+    </div>
+    <div id="contentwrapper">
+        <div id="content">
+            <div id="tagwrapper">
+                <h2>{{module.title}}</h2>
+                <a class="tags" href="{% url 'teachers:moduleView' module.id courseId %}">Module View</a>
+                <div class="tags" id="">Student Progress</div>
+                <a class="tags" href="">options</a>
+                <span>{{quiz.id}}</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'teachers/js/module.js' %}"></script>
+{% endblock %}

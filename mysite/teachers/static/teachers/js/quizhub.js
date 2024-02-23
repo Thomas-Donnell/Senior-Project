@@ -10,6 +10,18 @@ divs.forEach(function(div) {
     });
 });
 
+const moduleDivs = document.querySelectorAll('.modules');
+
+// Add a click event listener to each div
+moduleDivs.forEach(function(div) {
+    div.addEventListener('click', function() {
+        // Your event handling code here
+        id = div.getAttribute('data-class-id');
+        courseId = div.getAttribute('data-class-courseId');
+        window.location.href = `/teachers/module/${id}/${courseId}/`;
+    });
+});
+
 const btnDiv = document.getElementById('addbtn');
 const courseDiv = document.getElementById('coursediv');
 const content = document.getElementById('content');

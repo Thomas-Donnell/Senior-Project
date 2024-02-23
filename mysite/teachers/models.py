@@ -48,7 +48,32 @@ class Reply(models.Model):
 
     def __str__(self):
         return self.post.subject
-    
+
+class Module(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    course = models.ForeignKey(MyClass, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    is_visible = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+class ModuleQuestion(models.Model):
+    id = models.AutoField(primary_key=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
+    question_text = models.CharField(max_length=200)
+    option1 = models.CharField(max_length=100, null=True)
+    option2 = models.CharField(max_length=100, null=True)
+    option3 = models.CharField(max_length=100, null=True)
+    option4 = models.CharField(max_length=100, null=True)
+    correct_answer = models.IntegerField(choices=[(1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')])
+
+    def __str__(self):
+        return self.module.title
+      
 class Quiz(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     course = models.ForeignKey(MyClass, on_delete=models.CASCADE, null=True)

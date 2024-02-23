@@ -15,3 +15,11 @@ closeBtn.addEventListener('click', function () {
     courseDiv.style.display = 'none';
     content.style.display = 'flex';
 });
+
+const filenameSpan = document.getElementById('filename');
+const upload = document.getElementById('upload');
+upload.addEventListener('change', function () {
+    if (upload.files.length > 0) {
+        filenameSpan.innerHTML += upload.files[0].name + "<br>";
+    }
+});
