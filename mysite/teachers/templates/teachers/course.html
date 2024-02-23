@@ -63,7 +63,7 @@
                     <div class="button" id="addstudents">Add Students</div>
                 </div>
                 <a class="tags" href="{% url 'teachers:discussion' courseId %}">Discussions</a>
-                <a class="tags" href="">Content</a>
+                <a class="tags" href="{% url 'teachers:moduleHub' courseId %}">Modules</a>
                 <a class="tags" href="{% url 'teachers:quizHub' courseId %}">Quizes</a>
                 <div class="tags" id="grades-link">Grades</div>
                 <span>{{courseId}}</span>
