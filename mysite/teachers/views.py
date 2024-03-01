@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion,ModuleSection
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -199,11 +199,30 @@ def module(request, id, course_id):
     context = {"module":module, "courseId":course_id,}
     return render(request, "teachers/module.html", context)
 
+def moduleSection(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    questions = ModuleQuestion.objects.filter(module=module)
+    sections = ModuleSection.objects.filter(module=module)
+    position = questions.count() + sections.count()
+    if request.method == 'POST':
+        question = request.POST.get('question')
+        uploaded_file = request.FILES.get('upload')
+        ModuleSection.objects.create(
+            module = module,
+            text=question, 
+            image=uploaded_file,
+            position=position
+        )
+        return redirect(reverse('teachers:moduleSection', args=[id, course_id]))
+    context = {"questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    return render(request, "teachers/moduleview.html", context)
+
 def moduleView(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
+    sections = ModuleSection.objects.filter(module=module)
+    position = questions.count() + sections.count()
     if request.method == 'POST':
-        uploaded_file = request.FILES.get('upload')
         question = request.POST.get('question')
         option1 = request.POST.get('option1')
         option2 = request.POST.get('option2')
@@ -212,16 +231,16 @@ def moduleView(request, id, course_id):
         correct_answer = request.POST.get('correct_answer')
         ModuleQuestion.objects.create(
             module = module,
-            image = uploaded_file,
             question_text=question, 
             option1=option1,
             option2=option2,
             option3=option3,
             option4=option4,
-            correct_answer= correct_answer
+            correct_answer= correct_answer,
+            position=position
         )
         return redirect(reverse('teachers:moduleView', args=[id, course_id]))
-    context = {"questions":questions, "module":module, "courseId":course_id}
+    context = {"questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
 def quizHub(request, course_id):
