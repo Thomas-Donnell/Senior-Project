@@ -1,4 +1,4 @@
-#coursediv{
+.coursediv{
     display: none;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,12 @@
     border-radius: 10px;
   }
 
-  #add-question{
+  .buttons-div{
+    display: flex;
+    gap: 10px;
+  }
+
+  .buttons{
     width: 175px;
     height: 50px;
     display: flex;
@@ -62,8 +67,15 @@
     text-decoration: none;
     text-align: left;
   }
-  #add-question:hover {
+  .buttons:hover {
     background-color: #409e5f;
+  }
+
+  #add-section{
+    background-color: #a755a4;
+  }
+  #add-section:hover {
+    background-color: #773b75;
   }
 
 
@@ -181,6 +193,13 @@
     background-color: #FF4742;
   }
   #cancel:hover{
+    background-color: #be3531;
+  }
+
+  #cancel-section{
+    background-color: #FF4742;
+  }
+  #cancel-section:hover{
     background-color: #be3531;
   }
 
