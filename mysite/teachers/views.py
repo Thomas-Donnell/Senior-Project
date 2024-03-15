@@ -204,17 +204,24 @@ def moduleSection(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     position = questions.count() + sections.count()
+    prefabs = Prefab.objects.all()
     if request.method == 'POST':
         question = request.POST.get('question')
+        image_url = request.POST.get('imageUrl')
         uploaded_file = request.FILES.get('upload')
+        selected_file = None;
+        if(uploaded_file != None):
+            selected_file = uploaded_file
+        elif(image_url != None):
+            selected_file = "prefabs/" + image_url
         ModuleSection.objects.create(
             module = module,
             text=question, 
-            image=uploaded_file,
+            image=selected_file,
             position=position
         )
         return redirect(reverse('teachers:moduleSection', args=[id, course_id]))
-    context = {"questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
 def moduleView(request, id, course_id):
