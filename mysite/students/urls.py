@@ -20,4 +20,6 @@ urlpatterns = [
     path("student_view/<str:course_id>/", views.studentView, name="studentView"),
     path("student_report/", views.studentReport, name="studentReport"),
     path("past_semester/<str:term>/", views.pastSemester, name="pastSemester"),
+
+    path("anime/", views.anime, name="anime"),
 ]
