@@ -141,6 +141,15 @@
 
   .attachfile {
     margin-top: 30px;
+    display: flex;
+  }
+
+  .attachfile #prefabContainer{
+    margin-left: 25px;
+    cursor: pointer;
+  }
+  .attachfile #prefabContainer:hover{
+    color: #007bff;
   }
   .attachfile input[type="file"] {
     position: absolute;
@@ -154,6 +163,10 @@
     gap: 10px;
     position: relative;
     cursor: pointer;
+  }
+
+  .attachfile .file-label:hover{
+    color: #007bff;
   }
 
   .filename-wrapper {
@@ -236,4 +249,33 @@
   }
   .filename svg {
     cursor: pointer;
+  }
+
+  #prefabWrapper{
+    display: none;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+    max-height: 500px; /* Start with 0 height */
+    overflow: auto;
+  }
+
+  .imageContainer{
+    max-width: 250px;
+    max-height: 250px;
+    cursor: pointer;
+  }
+
+  .imageContainer:hover{
+    border: 2px solid #007bff;
+  }
+
+  #prefabWrapper img{
+    max-width: 100%;
+    height: auto;
+  }
+
+  .blue {
+    color: #007bff;
+    /* Adjust other styles as needed */
   }

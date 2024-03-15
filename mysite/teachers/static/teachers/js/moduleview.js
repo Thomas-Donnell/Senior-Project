@@ -2,12 +2,27 @@ const btnDiv = document.getElementById('add-question');
 const sectionBtn = document.getElementById('add-section');
 const courseDiv = document.getElementById('coursediv');
 const sectionDiv = document.getElementById('sectiondiv');
+const prefabWrapper = document.getElementById('prefabWrapper');
+const prefabBtn = document.getElementById('prefabContainer');
 const content = document.getElementById('content');
 // Add a click event listener to the trigger div
 btnDiv.addEventListener('click', function () {
     // Toggle the display style of the target div
     courseDiv.style.display = 'flex';
     content.style.display = 'none';
+});
+
+prefabBtn.addEventListener('click', function () {
+    // Toggle the display style of the target div
+    if (prefabWrapper.style.display === 'flex') {
+        // If currently displayed, hide it
+        prefabWrapper.style.display = 'none';
+    } else {
+        // If currently hidden, show it as a flex container
+        prefabWrapper.style.display = 'flex';
+    }
+
+    prefabBtn.classList.toggle('blue');
 });
 
 sectionBtn.addEventListener('click', function () {

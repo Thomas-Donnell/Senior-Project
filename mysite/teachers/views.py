@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion,ModuleSection
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -222,6 +222,7 @@ def moduleView(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     position = questions.count() + sections.count()
+    prefabs = Prefab.objects.all()
     if request.method == 'POST':
         question = request.POST.get('question')
         option1 = request.POST.get('option1')
@@ -240,7 +241,7 @@ def moduleView(request, id, course_id):
             position=position
         )
         return redirect(reverse('teachers:moduleView', args=[id, course_id]))
-    context = {"questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
 def quizHub(request, course_id):
