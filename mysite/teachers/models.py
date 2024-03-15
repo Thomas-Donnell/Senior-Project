@@ -151,3 +151,10 @@ class Alert(models.Model):
 
     def __str__(self):
         return self.course.class_name
+    
+class Prefab(models.Model):
+    id = models.AutoField(primary_key=True)
+    prefab = models.ImageField(null=True, blank=True, upload_to='prefabs/')
+
+    def __str__(self):
+        return str(self.id)
