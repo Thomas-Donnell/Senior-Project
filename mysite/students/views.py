@@ -313,3 +313,7 @@ def pastSemester(request, term):
                 'grades': grade.grade,
             })
         return JsonResponse(data, safe=False)
+    
+def anime(request):
+    context={}
+    return render(request, "students/anime_view.html", context)
