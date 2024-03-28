@@ -547,3 +547,6 @@ def pastSemester(request, student_id, term):
                 'grades': grade.grade,
             })
         return JsonResponse(data, safe=False)
+    
+def screen1(request):
+    return render(request, 'teachers/PremadeModules/HydroelectricDam/Screen1.html')

@@ -1,0 +1,343 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'PremadeModules/HydroelectricDam/css/Screen1.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="screen1">
+        <h2>How Does A Hydroelectric Dam Work?</h2>
+        <div class="video-container">
+            <iframe id="damVideo" width="1536" height="610" src="https://www.youtube.com/embed/q8HmRLCgDAI" title="Hydropower 101" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="screen2">
+        <h2>All About Potential Energy:</h2>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/PotentialEnergyIMG.png'%}">
+        </div>
+        <div class="PEContent">
+            <p> <span class="highlight">POTENTIAL energy </span>is the energy an object has because of its position. It can also be called
+                stored energy - energy that an object has, as an inherent characteristic, but not in use.
+                Sometimes, it can be called gravitational potential energy.
+            </p>
+        </div>
+        <div class="PEEquation">
+            <h4>PE = mass X g X height</h4>
+            <p class="variables">
+                PE = potential energy (joules - J) <br>
+                g = acceleration due to gravity at sea level (9.81 m/s^2)
+            </p>
+        </div>
+    </section>
+
+    <section id="screen3">
+        <script src="{% static 'PremadeModules/HydroelectricDam/js/scripts.js' %}"></script>
+        <h2>Calculate Potential Energy:</h2>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/PotentialEnergyNumbersIMG.png'%}">
+        </div>
+        <div class="PECalculation">
+            <p>PE = mass * g * height</p>
+            <label for="mass">Mass (kg):</label>
+            <input type="number" id="mass" name="mass">
+        
+            <label for="height">Height (m):</label>
+            <input type="number" id="height" name="height">
+        
+            <button onclick="calculatePE()">Calculate</button>
+        
+            <p>Result: <span id="result">0.00</span> Joules</p>
+        </div>
+    </section>
+
+    <section id="screen4">
+        <h2>What is Force?</h2>
+        <div class="ForceContent">
+            <p> <span class="highlight">FORCE </span>uses units called Newtons (N). Downward force, or weight, can be found by
+                multiplying mass times gravity.
+            </p>
+        </div>
+        <div class="PEEquation">
+            <h4>F = mass X gravity</h4>
+            <p class="variables">
+                Gravity = 9.81 m/s^2 <br>
+                A 10 kg object has a downward force of 98.1 N
+            </p>
+        </div>
+    </section>
+
+    <section id="screen4ext">
+        <h2>Calculate Force:</h2>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/PotentialEnergyNumbersIMG.png'%}">
+        </div>
+        <div class="ForceCalculation">
+            <p>Force = mass * 9.81 m/s^2</p>
+
+            <label for="mass1">Mass (kg):</label>
+            <input type="number" id="mass1" name="mass1">
+        
+            <button onclick="calculateForce()">Calculate</button>
+        
+            <p>Result: <span id="result1">0.00</span> Newtons</p>
+        </div>
+    </section>
+
+    <section id="screen5">
+        <h2>What is Work?</h2>
+        <div class="ForceContent">
+            <p> <span class="highlight">WORK </span>is force acting over a distance. Work uses the 
+                unit - Joule (J) or Newton meter.
+            </p>
+        </div>
+        <div class="WorkEquation">
+            <h4>W = force X distance</h4>
+        </div>
+        <div class="Example">
+            <p>
+                Example:<br><br>
+If a force of 10N is used to move an object 20 meters, how much work was done? (think of a
+person pushing against a big box to slide it across the floor)<br><br>
+W = 10 N X 20 meters = 200 N*m or 200 Joules
+            </p>
+        </div>
+    </section>
+
+    <section id="screen5ext">
+        <h2>Calculate Work:</h2>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/WorkIMG.png'%}">
+        </div>
+        <div class="WorkCalculation">
+            <p>W = force * distance</p>
+
+            <label for="force">force (Newtons):</label>
+            <input type="number" id="force" name="force">
+
+            <label for="distance">distance (Meters):</label>
+            <input type="number" id="distance" name="distance">
+        
+            <button onclick="calculateWork()">Calculate</button>
+        
+            <p>Result: <span id="result2">0.00</span> Joules or Newton Meters</p>
+        </div>
+    </section>
+
+    <section id="screen6">
+        <h2>What is Power?</h2>
+        <div class="PowerContent">
+            <p> <span class="highlight">POWER </span>is work done over a period of time. 
+                The unit for power is Watts (W) or Joules/sec
+            </p>
+        </div>
+        <div class="PowerEquation">
+            <h4>P = Work/time</h4>
+        </div>
+        <div class="Example">
+            <p>
+                Example:<br><br>
+                If you know the amount of work done and how much time it took, the amount of power can be
+                calculated.<br><br>
+                If the job requires 20,000 Joules of work, and it takes 2 days, the amount of
+                power is???<br><br>
+                Remember to convert time to seconds: 2 days = 24 hours/1 day X 60 min/1 hour X 60 sec/1 min = 172,800 seconds
+            </p>
+        </div>
+    </section>
+
+    <section id="screen7">
+        <h2>Calculate Power:</h2>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/PowerIMG.png'%}">
+        </div>
+        <div class="PowerCalculation">
+            <p>P = work/time</p>
+
+            <label for="work">work (Joules or Newton Meters):</label>
+            <input type="number" id="work" name="work">
+
+            <label for="distance">time (seconds):</label>
+            <input type="number" id="time" name="time">
+        
+            <button onclick="calculatePower()">Calculate</button>
+        
+            <p>Result: <span id="result3">0.00</span> Watts or Joules/second</p>
+        </div>
+    </section>
+
+    <section id="screen8">
+        <h2>Bucket Challenge Introduction:</h2>
+        <div class="ChallengeContent">
+            <p> <span class="highlight">Bucket challenge description here.</span></p>
+        </div>
+        <div class="image-container">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/ChallengeIMG1.png'%}">
+            <img src="{% static 'PremadeModules/HydroelectricDam/images/ChallengeIMG2.png'%}">
+        </div>
+        <p class="image-caption">This is our group of teachers last year
+            building the 5 gallon hydroelectric dam to light
+            a diode.</p>
+        <div class="SupplyList">
+            <h4>If you were given the following supplies, how could you successfully build a hydroelectric dam?</h4>
+            <ol>
+                <li>A five gallon bucket.</li>
+                <li>A length of PVC pipe (1/2 inch diameter, 18 inches in length but you
+                    can shorten)</li>
+                <li>A hydroelectric generator for the PVC pipe</li>
+                <li>A 10 watt diode (attached to generator)</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="screen9">
+        <h2>Factors Affecting Dam:</h2>
+        <div class="FactorContent">
+            <h4> <span class="highlight">Below are some factors that will need to be considered:</span></h4>
+            <ol>
+                <li>What length should you use for the PVC pipe when 
+                    constructing the dam?</li>
+                <li>What is the least amount of water you can hold
+                    in your resivoir (the bucket) to light your diode
+                    when released through the turbine?</li>
+            </ol>
+            <h4><span class="highlight">Hint: Hydroelectric dams are at most 90% efficient.</span></h4>
+        </div>
+    </section>
+
+    <section id="screen10">
+        <h2>Setting up the Dam:</h2>
+        <div class="ExperimentingContent">
+            <p><span class="highlight">Students should be able to 
+                experiment with differing lengths of PVC pipe here.</span></p>
+
+            <label for="heightSetPVC">Height of PVC Pipe (inches):</label>
+            <input type="number" id="heightSetPVC" name="heightSetPVC">
+        
+            <button onclick="setPVCHeight()">Set Height</button>
+        </div>
+
+    </section>
+
+    <section id="screen11">
+        <h2>Calculate Potential Energy w/ PVC Pipe:</h2>
+        <div class="PEPVCCalculation">
+            <p>PE = mass * g * height of PVC Pipe</p>
+            <label for="massPVC">Mass (kg):</label>
+            <input type="number" id="massPVC" name="massPVC">
+        
+            <label for="heightPVC">Height of PVC Pipe (inches):</label>
+            <input type="number" id="heightPVC" name="heightPVC">
+        
+            <button onclick="calculatePEPVC()">Calculate</button>
+        
+            <p>Result: <span id="result4">0.00</span> Joules</p>
+        </div>
+    </section>
+
+    <section id="screen12">
+        <h2>Mass of Water:</h2>
+        <div class="WaterCalculation">
+            <p># of gallons * 3.79 kg</p>
+            <p>Note: 1 US Gallon of water = 3.79 kg</p>
+            <label for="gallons">Gallons:</label>
+            <input type="number" id="gallons" name="gallons">
+        
+            <button onclick="calculateWater()">Calculate</button>
+        
+            <p>Result: <span id="result5">0.00</span> kg</p>
+        </div>
+    </section>
+
+    <section id="screen13">
+        <h2>Potential Power:</h2>
+        <div class="PPCalculation">
+            <h4>PE = &nbsp; <span id="massPP">0.00</span>kg * 9.81 * <span id="heightPP">0.00</span>m</h4>
+            <h4>PE = &nbsp; <span id="PEPP">0.00</span> &nbsp; Joules</h4>
+            <h4>Potential Power = PE * 0.9</h4>
+            <h4><span class="highlight">Reminder: Hydroelectric dams are 90% efficient.</span></h4>
+            <h4>Potential Power = <span id="result6">0.00</span> &nbsp; Joules</h4>
+            <button onclick="calculatePP()">Update</button>
+        </div>
+    </section>
+
+    <section id="screen14">
+        <h2>Let's Check YOUR Design Plan Mathematically (Force):</h2>
+        <div class="ForceStudentContent">
+            <h4>F = mass X gravity</h4>
+        </div>
+        <div class="spacing">
+            <p class="variables">
+                Gravity = 9.81 m/s^2 <br>
+            </p>
+        </div>
+        <div class="ForceStudentCalculation">
+            <p>Force = YOUR water mass * 9.81 m/s^2</p>
+
+            <label for="studMass">Mass (kg):</label>
+            <input type="number" id="studMass" name="studMass">
+        
+            <button onclick="calculateStudForce()">Calculate</button>
+        
+            <p>Result: <span id="studForceResult">0.00</span> Newtons</p>
+        </div>
+    </section>
+
+    <section id="screen15">
+        <h2>Let's Check YOUR Design Plan Mathematically (Work):</h2>
+        <div class="WorkStudentContent">
+            <p><span class="highlight">WORK </span> is force acting over a distance. Work uses the 
+                unit - Joule (J) or Newton meter.</p>
+        </div>
+        <h4>W = force X distance</h4>
+        <div class="WorkStudentCalculation">
+            <p>Work = <span id="studForceResult1" class="highlight">0.00</span>N * YOUR distance</p>
+
+            <label for="studDist">Distance (m):</label>
+            <input type="number" id="studDist" name="studDist">
+        
+            <button onclick="calculateStudWork()">Calculate</button>
+        
+            <p>Result: <span id="studWorkResult">0.00</span> Joules or Newton meters</p>
+        </div>
+    </section>
+
+    <section id="screen16">
+        <h2>Let's Check YOUR Design Plan Mathematically (Power):</h2>
+        <div class="PowerStudentContent">
+            <p><span class="highlight">POWER </span> is work done over a period of time. 
+                The unit for power is Watts (W) or Joules/sec</p>
+        </div>
+        <h4>P = Work/time</h4>
+        <div class="PowerStudentCalculation">
+            <p>Work = <span id="studWorkResult1" class="highlight">0.00</span>J / YOUR time to drain</p>
+
+            <label for="studTime">Time (s):</label>
+            <input type="number" id="studTime" name="studTime">
+        
+            <button onclick="calculateStudPower()">Calculate</button>
+        
+            <p>Result: <span id="studPowerResult">0.00</span> Watts or Joules/sec</p>
+
+            <div class="Efficiency">
+                <p><span class="highlight">Efficiency:</span> the watts multiplied by the efficiency of the dam. If it is less than 10, the diode does not light up. If it is between 10 and 12
+                , the diode lights up. If it is greater than 12, the diode explodes or cracks.</p>
+                <p>Efficiency = Watts * 90%</p>
+
+                <label for="studWatts">Watts</label>
+                <input type="number" id="studWatts" name="studWatts">
+
+                <button onclick="calculateStudEfficiency()">Calculate</button>
+        
+                <p>Result: <span id="studEfficiencyResult">0.00</span> Watts</p>
+                <p>Your <span id="diodeResult">----</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen17">
+
+    </section>
+{% endblock %}

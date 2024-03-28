@@ -1,0 +1,950 @@
+/* screen1.css */
+#screen1 .video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-left: 20vh;
+    padding-right: 20vh;
+}
+
+#screen1 h2 {
+    padding-top: 15vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+/* screen2 */
+
+#screen2 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen2 .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#screen2 .PEContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen2 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen2 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen2 .variables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+
+/* screen3 */
+
+#screen3 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen3 .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#screen3 .PECalculation p,
+#screen3 .PECalculation label,
+#screen3 .PECalculation input,
+#screen3 .PECalculation button {
+    text-align: center; /* Center-align text for these elements */
+    display: block; /* Stack them vertically */
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen3 .PECalculation p {
+    font-weight: bold; /* Make the equation bold */
+    margin-bottom: 10px; /* Add some space below the paragraph */
+}
+
+#screen3 .PECalculation input {
+    max-width: 300px; /* Limit the width of input boxes */
+    margin: 10px auto; /* Center the input boxes */
+}
+
+#screen3 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen3 button:hover {
+background-color: #0056b3;
+}
+
+#screen3 #result {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 4 */
+
+#screen4 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen4 .ForceContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen4 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen4 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen4 .variables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+
+/* Screen 4 extended */
+
+#screen4ext h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen4ext .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#screen4ext .ForceCalculation p,
+#screen4ext .ForceCalculation label,
+#screen4ext .ForceCalculation input,
+#screen4ext .ForceCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen4ext .ForceCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen4ext .ForceCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen4ext button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen4ext button:hover {
+background-color: #0056b3;
+}
+
+#screen4ext #result1 {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 5 */
+
+#screen5 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen5 .ForceContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen5 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen5 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen5 .Example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+
+/* Screen 5 Extended */
+
+#screen5ext h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen5ext .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#screen5ext .WorkCalculation p,
+#screen5ext .WorkCalculation label,
+#screen5ext .WorkCalculation input,
+#screen5ext .WorkCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen5ext .WorkCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen5ext .WorkCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen5ext button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen5ext button:hover {
+background-color: #0056b3;
+}
+
+#screen5ext #result2 {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 6 */
+
+#screen6 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen6 .PowerContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen6 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen6 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen6 .Example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+
+/* Screen 7 */
+
+#screen7 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen7 .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+#screen7 .PowerCalculation p,
+#screen7 .PowerCalculation label,
+#screen7 .PowerCalculation input,
+#screen7 .PowerCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen7 .PowerCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen7 .PowerCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen7 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen7 button:hover {
+background-color: #0056b3;
+}
+
+#screen7 #result3 {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 8 */
+
+#screen8 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen8 .ChallengeContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen8 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen8 .SupplyList {
+    padding-left: 5vh;
+    list-style-position: inside;
+}
+
+#screen8 .image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 5vh;
+}
+
+#screen8 .image-container img {
+    max-width: calc(50% - 4px); /* Adjusts for a smaller gap, allowing slightly larger images */
+    height: auto;
+    margin: 0 2px;
+}
+
+#screen8 .image-caption {
+    text-align: center;
+    display: block;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+}
+
+#screen8 .SupplyList {
+    text-align: center;
+    padding: 0;
+}
+
+#screen8 .SupplyList ol {
+    display: inline-block;
+    text-align: left;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+#screen8 .SupplyList ol {
+    width: auto;
+    margin: 0 auto;
+}
+
+/* Screen 9 */
+
+#screen9 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen9 .FactorContent {
+    padding-top: 5vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+#screen9 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen9 ol {
+    display: inline-block;
+    text-align: left;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+#screen9 ol {
+    width: auto;
+    margin: 0 auto;
+}
+
+#screen9 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+    padding-top:3vh;
+}
+
+/* Screen 10 */
+
+#screen10 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen10 .ExperimentingContent {
+    padding-top: 5vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+#screen10 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+/* Screen 11 */
+
+#screen11 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+    padding-bottom: 3vh;
+}
+
+#screen11 .PEPVCCalculation p,
+#screen11 .PEPVCCalculation label,
+#screen11 .PEPVCCalculation input,
+#screen11 .PEPVCCalculation button {
+    text-align: center; /* Center-align text for these elements */
+    display: block; /* Stack them vertically */
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen11 .PEPVCCalculation p {
+    font-weight: bold; /* Make the equation bold */
+    margin-bottom: 10px; /* Add some space below the paragraph */
+}
+
+#screen11 .PEPVCCalculation input {
+    max-width: 300px; /* Limit the width of input boxes */
+    margin: 10px auto; /* Center the input boxes */
+}
+
+#screen11 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen11 button:hover {
+background-color: #0056b3;
+}
+
+#screen11 #result4 {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 12 */
+
+#screen12 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+    padding-bottom: 3vh;
+}
+
+#screen12 .WaterCalculation p,
+#screen12 .WaterCalculation label,
+#screen12 .WaterCalculation input,
+#screen12 .WaterCalculation button {
+    text-align: center; /* Center-align text for these elements */
+    display: block; /* Stack them vertically */
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen12 .WaterCalculation p {
+    font-weight: bold; /* Make the equation bold */
+    margin-bottom: 10px; /* Add some space below the paragraph */
+}
+
+#screen12 .WaterCalculation input {
+    max-width: 300px; /* Limit the width of input boxes */
+    margin: 10px auto; /* Center the input boxes */
+}
+
+#screen12 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen12 button:hover {
+background-color: #0056b3;
+}
+
+#screen12 #result5 {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 13 */
+
+#screen13 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen13 .PPCalculation {
+    padding-top: 5vh;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+#screen13 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen13 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+}
+
+#screen13 button {
+    display: block; /* Ensure the button is a block-level element */
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    
+#screen13 button:hover {
+    background-color: #0056b3;
+}
+
+/* Screen 14 */
+
+#screen14 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen14 .ForceStudentContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen14 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen14 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen14 .variables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+}
+
+#screen14 .ForceStudentCalculation p,
+#screen14 .ForceStudentCalculation label,
+#screen14 .ForceStudentCalculation input,
+#screen14 .ForceStudentCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen14 .ForceStudentCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen14 .ForceStudentCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen14 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen14 button:hover {
+background-color: #0056b3;
+}
+
+#screen14 #studForceResult {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+#screen14 .spacing{
+    margin-bottom: 5vh;
+}
+
+/* Screen 15 */
+
+#screen15 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen15 .WorkStudentContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen15 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen15 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen15 .WorkStudentCalculation p,
+#screen15 .WorkStudentCalculation label,
+#screen15 .WorkStudentCalculation input,
+#screen15 .WorkStudentCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen15 .WorkStudentCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen15 .WorkStudentCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen15 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen15 button:hover {
+background-color: #0056b3;
+}
+
+#screen15 #studWorkResult {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+/* Screen 16 */
+
+#screen16 h2 {
+    padding-top: 10vh;
+    padding-left: 5vh;
+    text-decoration: underline;
+}
+
+#screen16 .PowerStudentContent {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen16 .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+#screen16 h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 3vh;
+}
+
+#screen16 .PowerStudentCalculation p,
+#screen16 .PowerStudentCalculation label,
+#screen16 .PowerStudentCalculation input,
+#screen16 .PowerStudentCalculation button {
+    text-align: center;
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen16 .PowerStudentCalculation p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#screen16 .PowerStudentCalculation input {
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#screen16 button {
+cursor: pointer;
+padding: 10px 15px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+margin-top: 10px;
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#screen16 button:hover {
+background-color: #0056b3;
+}
+
+#screen16 #studPowerResult {
+font-size: 1.2em;
+font-weight: bold;
+color: #d35400;
+}
+
+#screen16 .Efficiency{
+    margin-top: 5vh;
+}
