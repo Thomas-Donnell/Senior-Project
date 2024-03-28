@@ -31,4 +31,5 @@ urlpatterns = [
     path("student_report/<int:student_id>/", views.studentReport, name="studentReport"),
     path("submit_grade/<str:course_id>/", views.submitGrade, name="submitGrade"),
     path("past_semester/<int:student_id>/<str:term>/", views.pastSemester, name="pastSemester"),
+    path('screen1/', views.screen1, name='screen1'),
 ]   
