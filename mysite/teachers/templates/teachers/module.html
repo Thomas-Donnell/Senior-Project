@@ -22,7 +22,7 @@
                 <h2>{{module.title}}</h2>
                 <a class="tags" href="{% url 'teachers:moduleView' module.id courseId %}">Module View</a>
                 <div class="tags" id="">Student Progress</div>
-                <a class="tags" href="">options</a>
+                <a class="tags" href="{% url 'teachers:moduleOptions' module.id courseId %}">options</a>
                 <span>{{quiz.id}}</span>
             </div>
         </div>

@@ -51,6 +51,27 @@
     border-radius: 10px;
   }
 
+  #quiz-wrapper img {
+    max-width: 100%; /* Ensure images do not exceed the container width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure images do not have extra space below them */
+    margin: 0 auto; /* Center the images horizontally */
+  }
+
+  #quiz-wrapper-student{
+    max-height: 60vh;
+    min-width: 200px;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  #quiz-wrapper-student img {
+    max-width: 100%; /* Ensure images do not exceed the container width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure images do not have extra space below them */
+    margin: 0 auto; /* Center the images horizontally */
+  }
+
   .buttons-div{
     display: flex;
     gap: 10px;
@@ -115,6 +136,13 @@
     border-radius: 5px;
   }
 
+  .viewForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .textarea {
     display: flex;
     flex-direction: column-reverse;
@@ -161,6 +189,14 @@
     cursor: pointer;
   }
   .attachfile #prefabContainer:hover{
+    color: #007bff;
+  }
+
+  .attachfile #templateContainer{
+    margin-left: 25px;
+    cursor: pointer;
+  }
+  .attachfile #templateContainer:hover{
     color: #007bff;
   }
   .attachfile input[type="file"] {
@@ -272,6 +308,30 @@
     overflow: auto;
   }
 
+  #templateWrapper{
+    display: none;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+    max-height: 500px; /* Start with 0 height */
+    overflow: auto;
+  }
+
+  .templates{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #536387;
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .templates:hover{
+    opacity: .8;
+  }
+
   #prefabWrapper img{
     width: 100%;
     height: auto;
@@ -283,6 +343,14 @@
     cursor: pointer;
     border: 2px solid #007bff;
   }
+
+  .defaultModuleWrapper {
+    /* Add styles for the defaultModuleWrapper */
+    /* Ensure it fits inside the form and maintains proper styling */
+    max-width: 100%; /* Example: Ensure it doesn't exceed container width */
+    margin-bottom: 20px; /* Example: Add spacing below the included content */
+    /* Add more styles as needed */
+}
 
   .blue {
     color: #007bff;

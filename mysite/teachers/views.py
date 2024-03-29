@@ -208,6 +208,7 @@ def moduleSection(request, id, course_id):
     if request.method == 'POST':
         question = request.POST.get('question')
         image_url = request.POST.get('imageUrl')
+        defaultModule = request.POST.get('defaultModule')
         uploaded_file = request.FILES.get('upload')
         selected_file = None;
         if(uploaded_file != None):
@@ -217,6 +218,7 @@ def moduleSection(request, id, course_id):
         ModuleSection.objects.create(
             module = module,
             text=question, 
+            defaultModule=defaultModule,
             image=selected_file,
             position=position
         )
@@ -250,6 +252,19 @@ def moduleView(request, id, course_id):
         return redirect(reverse('teachers:moduleView', args=[id, course_id]))
     context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
+
+def moduleOptions(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    if request.method == 'POST':
+        is_visible = request.POST.get('visible')
+        if is_visible is None:
+            is_visible = False
+        print(is_visible)
+        module.is_visible = is_visible  
+        module.save()
+        return redirect(reverse('teachers:moduleOptions', args=[id, course_id]))
+    context = {"module":module, "courseId":course_id}
+    return render(request, "teachers/moduleoptions.html", context)
 
 def quizHub(request, course_id):
     my_class = MyClass.objects.get(id=course_id)

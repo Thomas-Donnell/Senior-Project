@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from teachers.forms import MyClassForm
-from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion
+from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, Prefab
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -151,6 +151,23 @@ def deletePost(request, id, course_id):
     post = Discussion.objects.get(pk=id)
     post.delete()
     return redirect(reverse('students:discussion', args=[course_id]))
+
+def moduleHub(request, course_id):
+    my_class = MyClass.objects.get(id=course_id)
+    modules = Module.objects.filter(course=my_class).order_by('-created_at')
+        
+    context = {'courseId': course_id, 'my_class': my_class, 'modules': modules}
+    return render(request, "students/modulehub.html", context)
+
+def moduleView(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    questions = ModuleQuestion.objects.filter(module=module)
+    sections = ModuleSection.objects.filter(module=module)
+    position = questions.count() + sections.count()
+    prefabs = Prefab.objects.all()
+    
+    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):
     my_class = MyClass.objects.get(id=course_id)
