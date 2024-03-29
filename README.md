@@ -1,4 +1,4 @@
-Intermediate Project
+Senior Project
 =============
 ## [Demo Site](https://clarkdonnell.pythonanywhere.com/)
 # 🚀 Getting Started
