@@ -20,7 +20,7 @@
                     {% endif %}
                     Discussions
                 </a>
-                <a class="tags" href="">Content</a>
+                <a class="tags" href="{% url 'students:moduleHub' courseId %}">Modules</a>
                 <a class="tags" href="{% url 'students:quizHub' courseId %}">Quizzes</a>
                 <a class="tags" href="{% url 'students:studentView' courseId %}">Grades</a>
                 <span>{{courseId}}</span>

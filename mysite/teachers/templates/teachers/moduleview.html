@@ -3,8 +3,8 @@
 
 {% block title %}Elearn{% endblock %}
 
-{% block extra_css %}<link rel="stylesheet" href="{% static 'css/moduleview.css' %}">
-    
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/moduleview.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -92,10 +92,15 @@
                                 <input type="file" name="upload" id="upload">
                             </label>
                             <div id="prefabContainer">Browse Prefabs</div>
+                            <div id="templateContainer">Default Modules</div>
                             <input type="hidden" id="imageUrl" name="imageUrl">
+                            <input type="hidden" id="defaultModule" name="defaultModule">
                         </div>
                         <div class="filename-wrapper">
                             <span id="filename"></span>
+                        </div>
+                        <div id="templateWrapper">
+                            <div class="templates" data-defaultModule="teachers/PremadeModules/HydroelectricDam/Screen1.html">Module 1</div>
                         </div>
                         <div id="prefabWrapper">
                             {% for prefab in prefabs %}
@@ -121,8 +126,9 @@
             <div id="wrapper">
                 <h2>{{module.title}}</h2>
                 <div id="quiz-wrapper">
-                    <form method="post">
+                    <form class="viewForm" method="post">
                         {% csrf_token %}
+                        <!-- {% include 'teachers/PremadeModules/HydroelectricDam/Screen1.html' %} -->
                         {% for i in count %}
                             {% for section in sections %}
                                 {% if section.position == i %}
@@ -131,6 +137,11 @@
                                     {% endif %}
                                     {% if section.text != "" %}
                                     <div class="sectionText">{{ section.text }}</div>
+                                    {% endif %}
+                                    {% if section.defaultModule %}
+                                    <div class="defaultModuleWrapper">
+                                        {% include section.defaultModule %}
+                                    </div>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
