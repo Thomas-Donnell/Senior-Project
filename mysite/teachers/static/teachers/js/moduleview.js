@@ -55,19 +55,14 @@ sectionBtn.addEventListener('click', function () {
 const closeBtn = document.getElementById('cancel');
 
 closeBtn.addEventListener('click', function () {
-    // Toggle the display style of the target div
-    actionWrapper.style.display = 'none';
-    courseDiv.style.display = 'none';
-    content.style.display = 'flex';
+    location.reload();
 });
 
 const closeSectionBtn = document.getElementById('cancel-section');
 
 closeSectionBtn.addEventListener('click', function () {
     // Toggle the display style of the target div
-    actionWrapper.style.display = 'none';
-    sectionDiv.style.display = 'none';
-    content.style.display = 'flex';
+    location.reload();
 });
 
 const filenameSpan = document.getElementById('filename');
