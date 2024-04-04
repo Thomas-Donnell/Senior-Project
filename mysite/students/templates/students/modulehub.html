@@ -15,9 +15,11 @@
             <h2>Modules</h2>
             <div id="posts-wrapper">
                 {% for module in modules %}
-                <div class="modules" data-class-id= "{{ module.id }}" data-class-courseId= "{{ courseId }}">
-                    <strong>{{ module.title }}</strong> - {{ module.created_at }}
-                </div>
+                    {% if module.is_visible %}
+                        <div class="modules" data-class-id= "{{ module.id }}" data-class-courseId= "{{ courseId }}">
+                            <strong>{{ module.title }}</strong> - {{ module.created_at }}
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
