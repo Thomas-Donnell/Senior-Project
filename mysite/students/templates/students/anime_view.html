@@ -59,11 +59,11 @@
       }
 
       var buildUrl = "{% static 'Build' %}";
-      var loaderUrl = buildUrl + "/HTML5.loader.js";
+      var loaderUrl = buildUrl + "/dam.loader.js";
       var config = {
-        dataUrl: buildUrl + "/HTML5.data.gz",
-        frameworkUrl: buildUrl + "/HTML5.framework.js.gz",
-        codeUrl: buildUrl + "/HTML5.wasm.gz",
+        dataUrl: buildUrl + "/dam.data.gz",
+        frameworkUrl: buildUrl + "/dam.framework.js.gz",
+        codeUrl: buildUrl + "/dam.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Unity",
@@ -120,4 +120,6 @@
       document.body.appendChild(script);
 
     </script>
+  </body>
+</html>
 {% endblock %}

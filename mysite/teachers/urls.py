@@ -18,6 +18,7 @@ urlpatterns = [
     path("quiz/<str:id>/<str:course_id>/", views.quiz, name="quiz"),
     path("quiz_view/<str:id>/<str:course_id>/", views.quizView, name="quizView"),
     path("options/<str:id>/<str:course_id>/", views.options, name="options"),
+    path("module_options/<str:id>/<str:course_id>/", views.moduleOptions, name="moduleOptions"),
     path("delete_quiz/<str:id>/<str:course_id>/", views.deleteQuiz, name="deleteQuiz"),
     path("delete_module/<str:id>/<str:course_id>/", views.deleteModule, name="deleteModule"),
     re_path(r'^settings/(?P<url>.+)/$', views.settings, name='settings'),
@@ -32,4 +33,5 @@ urlpatterns = [
     path("submit_grade/<str:course_id>/", views.submitGrade, name="submitGrade"),
     path("past_semester/<int:student_id>/<str:term>/", views.pastSemester, name="pastSemester"),
     path('screen1/', views.screen1, name='screen1'),
+    path('animation1/', views.animation1, name='animation1'),
 ]   

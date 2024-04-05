@@ -5,6 +5,7 @@ const courseDiv = document.getElementById('coursediv');
 const sectionDiv = document.getElementById('sectiondiv');
 const prefabWrapper = document.getElementById('prefabWrapper');
 const prefabBtn = document.getElementById('prefabContainer');
+const templateBtn = document.getElementById('templateContainer');
 const content = document.getElementById('contentwrapper');
 // Add a click event listener to the trigger div
 btnDiv.addEventListener('click', function () {
@@ -12,6 +13,21 @@ btnDiv.addEventListener('click', function () {
     actionWrapper.style.display = 'block';
     courseDiv.style.display = 'flex';
     content.style.display = 'none';
+});
+
+templateBtn.addEventListener('click', function () {
+    // Toggle the display style of the target div
+    if (templateWrapper.style.display === 'flex') {
+        // If currently displayed, hide it
+        templateWrapper.style.display = 'none';
+    } else {
+        // If currently hidden, show it as a flex container
+        templateWrapper.style.display = 'flex';
+        prefabWrapper.style.display = 'none';
+        prefabBtn.classList.remove('blue');
+    }
+
+    templateBtn.classList.toggle('blue');
 });
 
 prefabBtn.addEventListener('click', function () {
@@ -22,6 +38,8 @@ prefabBtn.addEventListener('click', function () {
     } else {
         // If currently hidden, show it as a flex container
         prefabWrapper.style.display = 'flex';
+        templateWrapper.style.display = 'none';
+        templateBtn.classList.remove('blue');
     }
 
     prefabBtn.classList.toggle('blue');
@@ -37,19 +55,14 @@ sectionBtn.addEventListener('click', function () {
 const closeBtn = document.getElementById('cancel');
 
 closeBtn.addEventListener('click', function () {
-    // Toggle the display style of the target div
-    actionWrapper.style.display = 'none';
-    courseDiv.style.display = 'none';
-    content.style.display = 'flex';
+    location.reload();
 });
 
 const closeSectionBtn = document.getElementById('cancel-section');
 
 closeSectionBtn.addEventListener('click', function () {
     // Toggle the display style of the target div
-    actionWrapper.style.display = 'none';
-    sectionDiv.style.display = 'none';
-    content.style.display = 'flex';
+    location.reload();
 });
 
 const filenameSpan = document.getElementById('filename');
@@ -80,5 +93,20 @@ images.forEach(function(image) {
         console.log(selectedImageUrl);
         imageUrl.value = selectedImageUrl;
         filenameSpan.innerHTML = selectedImageUrl + "<br>";
+    });
+});
+
+const defaultModule = document.getElementById('defaultModule');
+const templates = document.querySelectorAll('.templates');
+let selectedTemplate = null;
+templates.forEach(function(template){
+    template.addEventListener('click', function(){
+        let defaultTemplate = template.getAttribute('data-defaultModule');
+        if(selectedTemplate !== null){
+            selectedTemplate.classList.toggle('image');
+        }
+        selectedTemplate = template;
+        selectedTemplate.classList.toggle('image');
+        defaultModule.value = defaultTemplate
     });
 });
