@@ -128,7 +128,6 @@
                 <div id="quiz-wrapper">
                     <form class="viewForm" method="post">
                         {% csrf_token %}
-                        <!-- {% include 'teachers/PremadeModules/HydroelectricDam/Screen1.html' %} -->
                         {% for i in count %}
                             {% for section in sections %}
                                 {% if section.position == i %}
