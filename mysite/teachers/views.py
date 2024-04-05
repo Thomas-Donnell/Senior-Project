@@ -565,3 +565,6 @@ def pastSemester(request, student_id, term):
     
 def screen1(request):
     return render(request, 'teachers/PremadeModules/HydroelectricDam/Screen1.html')
+
+def animation1(request):
+    return render(request, 'teachers/PremadeModules/HydroelectricDam/animation1.html')
