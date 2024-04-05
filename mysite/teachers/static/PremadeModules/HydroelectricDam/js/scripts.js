@@ -79,8 +79,13 @@ function calculatePP() {
 
 function setPVCHeight(){
     const height = document.getElementById('heightSetPVC').value;
+    console.log('Height ', height)
+    const heightInPixels = height * 25;
+    console.log("Height after calc ", heightInPixels)
+    document.getElementById('pvcPipe').style.width = heightInPixels + 'px';
     document.getElementById('heightPP').textContent = height;
 }
+
 
 function calculateStudForce() {
     const mass = document.getElementById('studMass').value;
@@ -114,17 +119,21 @@ function calculateStudPower() {
 function calculateStudEfficiency(){
     const watts = document.getElementById('studWatts').value;
     const ratio = 0.9;
-
     const effResult = watts * ratio;
+    const diodeVisual = document.getElementById('diodeVisual');
 
     document.getElementById('studEfficiencyResult').textContent = effResult.toFixed(2);
 
+    diodeVisual.className = 'diodeState';
+
     if(effResult < 10){
         document.getElementById('diodeResult').textContent = "Diode does not light up.";
-
+        diodeVisual.classList.add('diodeNotLit');
     } else if(effResult >= 10 && effResult<=12){
         document.getElementById('diodeResult').textContent = "Diode succesfully lights up.";
+        diodeVisual.classList.add('diodeLit');
     } else{
         document.getElementById('diodeResult').textContent = "Diode Explodes or Cracks.";
+        diodeVisual.classList.add('diodeExploded');
     }
 }

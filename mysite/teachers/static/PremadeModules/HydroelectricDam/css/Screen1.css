@@ -549,6 +549,44 @@ color: #d35400;
     font-weight: bold;
 }
 
+#pvcPipe {
+    height: 50px; /* Fixed height */
+    width: 30px; /* Initial minimal width, or 0 if you prefer */
+    background-color: silver;
+    margin: 20px auto;
+    border: 2px solid #bbb;
+    border-radius: 5px; /* Keep the rounded edges for a pipe-like look */
+}
+
+#screen10 .ExperimentingContent p,
+#screen10 .ExperimentingContent label,
+#screen10 .ExperimentingContent input,
+#screen10 .ExperimentingContent button {
+    text-align: center; /* Center-align text for these elements */
+    display: block; /* Stack them vertically */
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#screen10 button {
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+    
+    #screen10 button:hover {
+    background-color: #0056b3;
+    }
+
+
 /* Screen 11 */
 
 #screen11 h2 {
@@ -947,4 +985,23 @@ color: #d35400;
 
 #screen16 .Efficiency{
     margin-top: 5vh;
+}
+
+.diodeState {
+    width: 50px;
+    height: 20px;
+    border: 2px solid black;
+    margin: 20px auto;
+}
+
+.diodeNotLit {
+    background-color: grey;
+}
+
+.diodeLit {
+    background-color: yellow;
+}
+
+.diodeExploded {
+    background-color: red;
 }
