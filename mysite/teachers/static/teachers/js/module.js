@@ -1,4 +1,4 @@
-const btnDiv = document.getElementById('grades-link');
+const btnDiv = document.getElementById('progress-link');
 const courseDiv = document.getElementById('coursediv');
 const content = document.getElementById('content');
 // Add a click event listener to the trigger div
@@ -29,9 +29,8 @@ const divs = document.querySelectorAll('.grades');
 divs.forEach(function(div) {
     div.addEventListener('click', function() {
         // Your event handling code here
-        id = div.getAttribute('data-class-id');
-        courseId = div.getAttribute('data-class-courseId');
+        moduleId = div.getAttribute('data-class-courseId');
         studentId = div.getAttribute('data-class-studentId');
-        window.location.href = `/teachers/attempts/${id}/${courseId}/${studentId}/`;
+        window.location.href = `/teachers/student_module/${studentId}/${moduleId}/`;
     });
 });
