@@ -1,9 +1,10 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -196,7 +197,24 @@ def moduleHub(request, course_id):
 
 def module(request, id, course_id):
     module = Module.objects.get(pk=id)
-    context = {"module":module, "courseId":course_id,}
+    enrolled_students = EnrolledUser.objects.filter(course_id=course_id)
+    student_progress = []
+    for enrolled_student in enrolled_students:
+        student = enrolled_student.user
+        student_modules = StudentModule.objects.filter(student=student, module=module)
+        if student_modules.exists():
+            student_module = student_modules.first();
+            student_progress.append(student_module)
+            # update studentModule with new json data
+        else:
+            student_module = StudentModule.objects.create(
+                module=module,
+                student=student,
+                progress=0,
+            )
+            student_progress.append(student_module)
+
+    context = {"studentProgress":student_progress, "module":module, "courseId":course_id,}
     return render(request, "teachers/module.html", context)
 
 def moduleSection(request, id, course_id):
@@ -253,13 +271,23 @@ def moduleView(request, id, course_id):
     context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
+def studentModule(request, student_id, module_id):
+    module = Module.objects.get(pk=module_id)
+    course_id = module.course.id
+    questions = ModuleQuestion.objects.filter(module=module)
+    sections = ModuleSection.objects.filter(module=module)
+    position = questions.count() + sections.count()
+    prefabs = Prefab.objects.all()
+    
+    context = {"studentId":student_id, "prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    return render(request, "teachers/studentmodule.html", context)
+
 def moduleOptions(request, id, course_id):
     module = Module.objects.get(pk=id)
     if request.method == 'POST':
         is_visible = request.POST.get('visible')
         if is_visible is None:
             is_visible = False
-        print(is_visible)
         module.is_visible = is_visible  
         module.save()
         return redirect(reverse('teachers:moduleOptions', args=[id, course_id]))
@@ -562,6 +590,35 @@ def pastSemester(request, student_id, term):
                 'grades': grade.grade,
             })
         return JsonResponse(data, safe=False)
+def moduleData(request, student_id, module_id):
+    student = User.objects.get(pk=student_id)
+    module = Module.objects.get(pk=module_id)
+    studentModules = StudentModule.objects.filter(student=student, module=module)
+    studentModule = None
+    if studentModules.exists():
+        studentModule = studentModules.first();
+        # update studentModule with new json data
+    else:
+        studentModule = StudentModule.objects.create(
+            module=module,
+            student=student,
+            progress=0,
+        )
+        
+    input_values = studentModule.input_values
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        recievedData = json.loads(request.body)
+        input_values = recievedData.get('input_values')
+        progress = recievedData.get('progress')
+        studentModule.input_values = input_values
+        studentModule.progress = progress
+        studentModule.save()
+        return JsonResponse(status = 200)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'input_values': input_values}, safe=False)
+
+
     
 def screen1(request):
     return render(request, 'teachers/PremadeModules/HydroelectricDam/Screen1.html')

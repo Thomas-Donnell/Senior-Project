@@ -123,6 +123,16 @@ class StudentQuestion(models.Model):
     def __str__(self):
         return self.quiz.title
     
+class StudentModule(models.Model):
+    id = models.AutoField(primary_key=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    input_values = models.JSONField(null=True)
+    progress = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    def __str__(self):
+        return f"{self.student.username} - {self.module.title}"
+    
 class Grade(models.Model):
     id = models.AutoField(primary_key=True)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)

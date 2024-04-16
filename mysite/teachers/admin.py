@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MyClass,  EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab
+from .models import MyClass,  EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule
 # Register your models here.
 class MyClassAdmin(admin.ModelAdmin):
     list_display = ('id', 'class_descriptor', 'class_name', 'teacher')
@@ -17,3 +17,4 @@ admin.site.register(Module)
 admin.site.register(ModuleQuestion)
 admin.site.register(ModuleSection)
 admin.site.register(Prefab)
+admin.site.register(StudentModule)
