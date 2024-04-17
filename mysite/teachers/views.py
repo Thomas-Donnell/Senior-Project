@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule, ShortAnswer
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -221,7 +221,8 @@ def moduleSection(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
-    position = questions.count() + sections.count()
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
     prefabs = Prefab.objects.all()
     if request.method == 'POST':
         question = request.POST.get('question')
@@ -244,11 +245,46 @@ def moduleSection(request, id, course_id):
     context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
+def shortAnswer(request, id, course_id):
+    module = Module.objects.get(pk=id)
+    questions = ModuleQuestion.objects.filter(module=module)
+    sections = ModuleSection.objects.filter(module=module)
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
+    if request.method == 'POST':
+        question = request.POST.get('question')
+        ShortAnswer.objects.create(
+            module = module,
+            question_text=question, 
+            position=position
+        )
+    return redirect(reverse('teachers:moduleView', args=[id, course_id]))
+
 def moduleView(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
-    position = questions.count() + sections.count()
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
+    all_questions = []
+    i = 0
+    j = 0
+    while i < questions.count() and j < shortAnswers.count():
+        print(questions[i].position)
+        print(shortAnswers[j].position)
+        if questions[i].position < shortAnswers[j].position:
+            all_questions.append({"type":"multi", "question":questions[i]})
+            i += 1 
+        else:
+            all_questions.append({"type":"short", "question": shortAnswers[j]})
+            j += 1
+    while i < questions.count():
+        all_questions.append({"type":"multi", "question":questions[i]})
+        i += 1 
+    while j < shortAnswers.count():
+        all_questions.append({"type":"short", "question": shortAnswers[j]})
+        j += 1
+    print(all_questions)
     prefabs = Prefab.objects.all()
     if request.method == 'POST':
         question = request.POST.get('question')
@@ -268,7 +304,7 @@ def moduleView(request, id, course_id):
             position=position
         )
         return redirect(reverse('teachers:moduleView', args=[id, course_id]))
-    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"questions": all_questions, "prefabs": prefabs, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/moduleview.html", context)
 
 def studentModule(request, student_id, module_id):

@@ -4,6 +4,10 @@ const sectionBtn = document.getElementById('add-section');
 const courseDiv = document.getElementById('coursediv');
 const sectionDiv = document.getElementById('sectiondiv');
 const prefabWrapper = document.getElementById('prefabWrapper');
+const multiChoiceBtn = document.getElementById('multiple-choice-button');
+const shortAnsBtn = document.getElementById('short-answer-button');
+const shortAnsForm = document.getElementById('short-answer-form');
+const multiChoiceForm = document.getElementById('multiple-choice-form');
 const prefabBtn = document.getElementById('prefabContainer');
 const templateBtn = document.getElementById('templateContainer');
 const content = document.getElementById('contentwrapper');
@@ -14,6 +18,16 @@ btnDiv.addEventListener('click', function () {
     courseDiv.style.display = 'flex';
     content.style.display = 'none';
 });
+
+multiChoiceBtn.addEventListener('click', function() {
+    shortAnsForm.style.display = 'none';
+    multiChoiceForm.style.display = 'block';
+})
+
+shortAnsBtn.addEventListener('click', function() {
+    multiChoiceForm.style.display = 'none';
+    shortAnsForm.style.display = 'block';
+})
 
 templateBtn.addEventListener('click', function () {
     // Toggle the display style of the target div
@@ -57,6 +71,11 @@ const closeBtn = document.getElementById('cancel');
 closeBtn.addEventListener('click', function () {
     location.reload();
 });
+
+const closeShortAnsBtn = document.getElementById('cancel-short-answer');
+closeShortAnsBtn.addEventListener('click', function(){
+    location.reload();
+})
 
 const closeSectionBtn = document.getElementById('cancel-section');
 

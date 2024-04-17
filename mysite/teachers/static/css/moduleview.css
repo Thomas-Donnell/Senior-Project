@@ -20,6 +20,13 @@
   #selector div:hover{
     color: #0063ce;
   }
+  #multiple-choic-form{
+    display: block;
+  }
+  #short-answer-form{
+    display: none;
+  }
+  
   #actionWrapper{
     display: none;
     height: 100vh;
@@ -267,6 +274,12 @@
     background-color: #FF4742;
   }
   #cancel:hover{
+    background-color: #be3531;
+  }
+  #cancel-short-answer{
+    background-color: #FF4742;
+  }
+  #cancel-short-answer:hover{
     background-color: #be3531;
   }
 

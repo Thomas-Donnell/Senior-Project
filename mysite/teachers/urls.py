@@ -14,6 +14,7 @@ urlpatterns = [
     path("module/<str:id>/<str:course_id>/", views.module, name="module"),
     path("module_view/<str:id>/<str:course_id>/", views.moduleView, name="moduleView"),
     path("module_section/<str:id>/<str:course_id>/", views.moduleSection, name="moduleSection"),
+    path("short_answer/<str:id>/<str:course_id>/", views.shortAnswer, name="shortAnswer"),
     path("quiz_hub/<str:course_id>/", views.quizHub, name="quizHub"),
     path("quiz/<str:id>/<str:course_id>/", views.quiz, name="quiz"),
     path("quiz_view/<str:id>/<str:course_id>/", views.quizView, name="quizView"),

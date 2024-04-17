@@ -111,6 +111,16 @@ class Question(models.Model):
     def __str__(self):
         return self.quiz.title
     
+class ShortAnswer(models.Model):
+    id = models.AutoField(primary_key=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    question_text = models.CharField(max_length=500)
+    position = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.module.title
+    
+    
 class StudentQuestion(models.Model):
     id = models.AutoField(primary_key=True)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
