@@ -13,10 +13,14 @@
     <div id="actionWrapper">
         <div id="actionContainer">
             <div class="coursediv" id="coursediv">
+                <div id="selector">
+                    <div>Multiple Choice</div>
+                    <div>Short Answer</div>
+                </div>
                 <div class="form-wrapper">
-                    <form action="{% url 'teachers:moduleView' module.id courseId %}" method="POST" enctype="multipart/form-data" >
+                    <form id="multiple-choice-form" action="{% url 'teachers:moduleView' module.id courseId %}" method="POST" enctype="multipart/form-data" >
                         {% csrf_token %}
-                        <label for="message" class="textarea-label"> Module Creation</label>
+                        <label for="message" class="textarea-label">Question Creation</label>
                         <div class="textarea">
                             <textarea
                                 rows="4"
@@ -61,6 +65,26 @@
                             <option value="3">Option 3</option>
                             <option value="4">Option 4</option>
                         </select><br>
+                        <button class="btn">
+                            Add Question
+                        </button>
+                        <button type="button" class="btn" id="cancel">
+                            Cancel
+                        </button>
+                    </form>
+                    <form id="short-answer-form" action="{% url 'teachers:moduleView' module.id courseId %}" method="POST" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <label for="message" class="textarea-label">Question Creation</label>
+                        <div class="textarea">
+                            <textarea
+                                rows="4"
+                                name="question"
+                                id="message"
+                                placeholder="Enter Question Here!"
+                                class="textarea-input"
+                            ></textarea>
+                        </div>
+                        
                         <button class="btn">
                             Add Question
                         </button>

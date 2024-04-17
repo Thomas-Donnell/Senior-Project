@@ -17,7 +17,6 @@
         <div id="grades-wrapper" >
             {% for student in studentProgress %}
                 <div class="grades" data-class-courseId= "{{ student.module.id }}" data-class-studentId= "{{ student.student.id }}">
-                    <!-- data-class-id= "{{ quiz.id }}" data-class-courseId= "{{ courseId }}" data-class-studentId= "{{ grade.student.id }} -->
                     <span>{{student.student.username}}</span> 
                     <span>{{student.progress}}%</span> 
                 </div>
