@@ -1,8 +1,17 @@
 const content = document.getElementById('content')
+const newSubmission = document.getElementById('new-submission');
+const wrapper = document.getElementById('wrapper');
+const gradeWrapper = document.getElementById('grade-wrapper');
 var studentId = content.getAttribute('data-class-studentId');
 var moduleId = content.getAttribute('data-class-moduleId');
 let inputValues = {};
 let progress = 0;
+
+newSubmission.addEventListener('click', function() {
+    gradeWrapper.style.display = 'none';
+    wrapper.style.display = 'block';
+});
+
 function getModuleData(){
     return new Promise((resolve, reject) => {
         fetch('/teachers/module_data/' + studentId + '/' + moduleId + '/', {
@@ -14,6 +23,7 @@ function getModuleData(){
         .then(response => response.json())
         .then(data => {
             inputValues = data.input_values;
+            progress = data.progress;
             resolve();
         })
         .catch(error => {
@@ -39,21 +49,29 @@ document.addEventListener('DOMContentLoaded', async function() {
             }else{
                 temp = document.querySelector(`[name="${key}"]`);
             }
+            if(temp === null){
+                delete inputValues[key];
+            }else{
+                temp.value = inputValues[key].value;
+                temp.checked = true;
+            }
 
-            temp.value = inputValues[key].value;
-            temp.checked = true;
         }
         if(inputValues === null){
             inputValues = {};
         }
-        var length = Object.keys(inputValues).length;
-        progress = (length/inputElements.length) * 100
+        
         // Add event listeners to each input element
         inputElements.forEach(input => {
             // Add event listener for "input" event on each input element
             input.addEventListener('input', function() {
                 // Update the inputValues object with the new input value, name, and ID
                 inputValues[input.name] = {'value':input.value, 'type':input.type};
+                if(input.value == ""){
+                    delete inputValues[input.name];
+                }
+                var length = Object.keys(inputValues).length;
+                progress = (length/inputElements.length) * 100;
             });
         });
         // Continue with the rest of your code that depends on inputValues

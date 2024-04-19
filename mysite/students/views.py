@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from teachers.forms import MyClassForm
-from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, Prefab
+from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -16,8 +16,8 @@ class CustomStudent:
         self.average = average
 
 class CustomGrade:
-    def __init__(self, quiz, grades):
-        self.quiz = quiz
+    def __init__(self, module, grades):
+        self.module = module
         self.grades = grades
 
 class CustomAnalytics:
@@ -76,8 +76,8 @@ def deleteCourse(request, course_id):
     return redirect('students:home')
     
 class CustomGrade:
-    def __init__(self, quiz, grades):
-        self.quiz = quiz
+    def __init__(self, module, grades):
+        self.module = module
         self.grades = grades
 
 def studentView(request, course_id):
@@ -88,21 +88,20 @@ def studentView(request, course_id):
     weighting_factor = 0
     subquery = Grade.objects.filter(
         student=student,
-        quiz=OuterRef('pk')  # Use OuterRef to reference the quiz being considered
-    ).values('quiz')
+        module=OuterRef('pk')  # Use OuterRef to reference the quiz being considered
+    ).values('module')
 
-    quizzes = Quiz.objects.filter(
+    modules = Module.objects.filter(
         course=course,
         pk__in=Subquery(subquery)
     )
-    for quiz in quizzes:
-        grades = Grade.objects.filter(quiz=quiz, student=student)
-        max_grade = Grade.objects.filter(quiz=quiz, student=student).order_by('-grade').first()
-        print(max_grade.grade)
-        average += (max_grade.grade * max_grade.quiz.weight)
-        weighting_factor += max_grade.quiz.weight
-        custom_grades.append(CustomGrade(quiz, grades))
-    if(len(quizzes) > 0):
+    for module in modules:
+        grades = Grade.objects.filter(module=module, student=student)
+        max_grade = Grade.objects.filter(module=module, student=student).order_by('-grade').first()
+        average += (max_grade.grade * max_grade.module.weight)
+        weighting_factor += max_grade.module.weight
+        custom_grades.append(CustomGrade(module, grades))
+    if(len(modules) > 0):
         average = round(average / weighting_factor, 2)
     context = {'courseId': course_id, 'grades': custom_grades, 'average': average}
     return render(request, "students/studentview.html", context)
@@ -164,9 +163,77 @@ def moduleView(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     position = questions.count() + sections.count()
-    prefabs = Prefab.objects.all()
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
+    all_questions = []
+    i = 0
+    j = 0
+    while i < questions.count() and j < shortAnswers.count():
+        if questions[i].position < shortAnswers[j].position:
+            all_questions.append({"type":"multi", "question":questions[i]})
+            i += 1 
+        else:
+            all_questions.append({"type":"short", "question": shortAnswers[j]})
+            j += 1
+    while i < questions.count():
+        all_questions.append({"type":"multi", "question":questions[i]})
+        i += 1 
+    while j < shortAnswers.count():
+        all_questions.append({"type":"short", "question": shortAnswers[j]})
+        j += 1
     
-    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    attempt = 0 
+    try:
+        grades = Grade.objects.filter(module=module, student=request.user)
+        attempt = len(grades)
+        # Annotate the query with the maximum grade
+        grades = grades.annotate(max_grade=Max('grade'))
+        # Order the results in descending order by the maximum grade
+        highest_grade = grades.order_by('-max_grade').first()
+    except ObjectDoesNotExist:
+        grades = None
+        highest_grade = None
+
+    if request.method == 'POST':
+        total_questions = questions.count() + shortAnswers.count()
+        correct = 0
+        for question in shortAnswers:
+            answer = request.POST.get(f"{question.id}")
+            StudentShortAnswer.objects.create(
+                module=module,
+                student=request.user,
+                question_text=question.question_text,
+                answer=answer,
+                attempt=attempt + 1,
+                pending=True
+            )
+        for question in questions:
+            selected_answer = int(request.POST.get(f"{question.id}"))
+            StudentQuestion.objects.create(
+                module=module,
+                student=request.user,
+                module_question=question,
+                selected_answer=selected_answer,
+                correct_answer=question.correct_answer,
+                attempt=attempt + 1
+            )
+            if selected_answer == question.correct_answer:
+                correct += 1
+        total = (correct/total_questions) * 100
+        pending = True
+        if shortAnswers.count() == 0:
+            pending = False
+
+        Grade.objects.create(
+            grade = total,
+            module=module, 
+            student=request.user,
+            attempt = attempt + 1,
+            pending= pending
+        )
+        return redirect(reverse('students:moduleView', args=[id, course_id]))
+    
+    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):
@@ -203,6 +270,7 @@ def quizView(request, id, course_id):
         highest_grade = grades.order_by('-max_grade').first()
     except ObjectDoesNotExist:
         grades = None
+        highest_grade = None
     
     if request.method == 'POST':
         total_questions = len(questions)
@@ -266,12 +334,12 @@ def studentReport(request):
     for grade in final_grades:
         if grade.term not in terms:
             terms.append(grade.term)
-    print(terms)
+
     courses = MyClass.objects.filter(enrolleduser__user=selected_student)
 
     subquery = Grade.objects.filter(
         student=OuterRef('student'),
-        quiz=OuterRef('quiz')
+        module=OuterRef('module')
     ).order_by('-grade').values('grade')[:1]
 
     custom_grades = []
@@ -286,14 +354,14 @@ def studentReport(request):
             weighting_factor = 0
             grades_highest = Grade.objects.filter(
                 student=student.user,
-                quiz__course=course,
+                module__course=course,
                 grade=Subquery(subquery)
             )
 
             if grades_highest.exists():
                 for grade in grades_highest:
-                    total += (grade.grade * grade.quiz.weight)
-                    weighting_factor += grade.quiz.weight
+                    total += (grade.grade * grade.module.weight)
+                    weighting_factor += grade.module.weight
                 total = round(total / weighting_factor, 2)
             grades.append(CustomStudent(student.user, total))
             grades = sorted(grades, key=lambda x: x.average, reverse=False)

@@ -13,7 +13,7 @@
     <div id="contentwrapper">
         <div id="content">
             <div id="wrapper">
-                <h2>{{quiz.title}}</h2>
+                <h2>{{module.title}}</h2>
                 <table id="grade-table">
                     <tr>
                         <th>Question</th>
@@ -23,14 +23,26 @@
                     </tr>
                     {% for question in questions %}
                         <tr>
-                            <td>{{question.question.question_text}}</td>
+                            <td>{{question.module_question.question_text}}</td>
                             <td>{{question.correct_answer}}</td>
                             <td>{{question.selected_answer}}</td>
-                            <td>{{question.question.option1}} <br>
-                                {{question.question.option2}} <br>
-                                {{question.question.option3}} <br>
-                                {{question.question.option4}}
+                            <td>{{question.module_question.option1}} <br>
+                                {{question.module_question.option2}} <br>
+                                {{question.module_question.option3}} <br>
+                                {{question.module_question.option4}}
                             </td>
+                        </tr>
+                    {% endfor %}
+                    {% for shortAnswer in shortAnswers %}
+                        <tr>
+                            <td>{{shortAnswer.question_text}}</td>
+                            {% if shortAnswer.grade %}
+                                <td>{{shortAnswer.grade}}%</td>
+                            {% else %}
+                                <td>Needs Grading</td>
+                            {% endif %}
+                            <td>{{shortAnswer.answer}}</td>
+                            <td>Null</td>
                         </tr>
                     {% endfor %}
                 </table>

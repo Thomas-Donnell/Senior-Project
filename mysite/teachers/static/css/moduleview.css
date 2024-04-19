@@ -1,12 +1,36 @@
 .coursediv{
     display: none;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     background: #d3d3d3;
     width: 60%;
     border-radius: 10px;
     margin-top: 10px;
   }
+  #selector{
+    display: flex;
+    gap: 10px;
+
+  }
+  #submitbtn{
+    align-self: flex-start;
+    margin-bottom: 10px;
+  }
+  #selector div{
+    color: #3999ff;
+    cursor: pointer;
+  }
+  #selector div:hover{
+    color: #0063ce;
+  }
+  #multiple-choic-form{
+    display: block;
+  }
+  #short-answer-form{
+    display: none;
+  }
+  
   #actionWrapper{
     display: none;
     height: 100vh;
@@ -254,6 +278,12 @@
     background-color: #FF4742;
   }
   #cancel:hover{
+    background-color: #be3531;
+  }
+  #cancel-short-answer{
+    background-color: #FF4742;
+  }
+  #cancel-short-answer:hover{
     background-color: #be3531;
   }
 

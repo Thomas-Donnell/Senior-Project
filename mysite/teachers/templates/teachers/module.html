@@ -17,7 +17,6 @@
         <div id="grades-wrapper" >
             {% for student in studentProgress %}
                 <div class="grades" data-class-courseId= "{{ student.module.id }}" data-class-studentId= "{{ student.student.id }}">
-                    <!-- data-class-id= "{{ quiz.id }}" data-class-courseId= "{{ courseId }}" data-class-studentId= "{{ grade.student.id }} -->
                     <span>{{student.student.username}}</span> 
                     <span>{{student.progress}}%</span> 
                 </div>
@@ -31,6 +30,7 @@
                 <h2>{{module.title}}</h2>
                 <a class="tags" href="{% url 'teachers:moduleView' module.id courseId %}">Module View</a>
                 <div class="tags" id="progress-link">Student Progress</div>
+                <a class="tags" href="{% url 'teachers:shortAnswerSubmissions' module.id courseId %}">Pending Submissions</a>
                 <a class="tags" href="{% url 'teachers:moduleOptions' module.id courseId %}">options</a>
                 <span>{{quiz.id}}</span>
             </div>

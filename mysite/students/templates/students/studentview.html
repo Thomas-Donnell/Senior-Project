@@ -19,12 +19,14 @@
                     <span>{{average}}%</span>
                 </div> 
                 {% for grade in grades %}
-                    <h2>{{grade.quiz.title}}</h2>
+                    <h2>{{grade.module.title}}</h2>
                     {% for attempt in grade.grades %}
-                        <div class="links">
-                            <span>Attempt: {{attempt.attempt}}</span>
-                            <span>{{attempt.grade}}%</span>
-                        </div> 
+                        {% if not attempt.pending %}
+                            <div class="links">
+                                <span>Attempt: {{attempt.attempt}}</span>
+                                <span>{{attempt.grade}}%</span>
+                            </div> 
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             </div>
