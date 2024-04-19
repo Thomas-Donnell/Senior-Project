@@ -13,7 +13,16 @@
     
     <div id="contentwrapper">
         <div id="content" data-class-studentId= "{{ request.user.id }}" data-class-moduleId= "{{ module.id }}">
-            <div id="wrapper">
+            <div id="grade-wrapper" {% if not grade %}style="display: none;"{% endif %}>
+                
+                <h2>Attempt: {{attempt}}/{{module.attempts}} <br>
+                    Your Grade: {{grade.grade}}%
+                </h2>
+                {% if attempt < module.attempts %}
+                    <div class="btn" id="new-submission">New Submission</div>
+                {% endif %}
+            </div>
+            <div id="wrapper" {% if grade %}style="display: none;"{% endif %}>
                 <h2>{{module.title}}</h2>
                 <div id="quiz-wrapper-student">
                     <form class="viewForm" method="post">

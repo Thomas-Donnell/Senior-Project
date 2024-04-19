@@ -338,10 +338,15 @@ def moduleOptions(request, id, course_id):
     module = Module.objects.get(pk=id)
     if request.method == 'POST':
         is_visible = request.POST.get('visible')
+        weight = request.POST.get('gradeWeight')
+        attempts = request.POST.get('attempts')
         if is_visible is None:
             is_visible = False
-        module.is_visible = is_visible  
+        module.is_visible = is_visible
+        module.weight = weight  
+        module.attempts = attempts 
         module.save()
+        
         return redirect(reverse('teachers:moduleOptions', args=[id, course_id]))
     context = {"module":module, "courseId":course_id}
     return render(request, "teachers/moduleoptions.html", context)

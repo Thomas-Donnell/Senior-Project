@@ -186,9 +186,13 @@ def moduleView(request, id, course_id):
     try:
         grades = Grade.objects.filter(module=module, student=request.user)
         attempt = len(grades)
-
+        # Annotate the query with the maximum grade
+        grades = grades.annotate(max_grade=Max('grade'))
+        # Order the results in descending order by the maximum grade
+        highest_grade = grades.order_by('-max_grade').first()
     except ObjectDoesNotExist:
         grades = None
+        highest_grade = None
 
     if request.method == 'POST':
         total_questions = questions.count() + shortAnswers.count()
@@ -229,7 +233,7 @@ def moduleView(request, id, course_id):
         )
         return redirect(reverse('students:moduleView', args=[id, course_id]))
     
-    context = {"questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):
@@ -266,6 +270,7 @@ def quizView(request, id, course_id):
         highest_grade = grades.order_by('-max_grade').first()
     except ObjectDoesNotExist:
         grades = None
+        highest_grade = None
     
     if request.method == 'POST':
         total_questions = len(questions)

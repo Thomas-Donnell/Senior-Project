@@ -1,8 +1,17 @@
 const content = document.getElementById('content')
+const newSubmission = document.getElementById('new-submission');
+const wrapper = document.getElementById('wrapper');
+const gradeWrapper = document.getElementById('grade-wrapper');
 var studentId = content.getAttribute('data-class-studentId');
 var moduleId = content.getAttribute('data-class-moduleId');
 let inputValues = {};
 let progress = 0;
+
+newSubmission.addEventListener('click', function() {
+    gradeWrapper.style.display = 'none';
+    wrapper.style.display = 'block';
+});
+
 function getModuleData(){
     return new Promise((resolve, reject) => {
         fetch('/teachers/module_data/' + studentId + '/' + moduleId + '/', {
