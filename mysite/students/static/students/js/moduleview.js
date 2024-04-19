@@ -14,6 +14,7 @@ function getModuleData(){
         .then(response => response.json())
         .then(data => {
             inputValues = data.input_values;
+            progress = data.progress;
             resolve();
         })
         .catch(error => {

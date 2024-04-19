@@ -55,6 +55,8 @@ class Module(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     is_visible = models.BooleanField(default=False)
+    attempts = models.PositiveIntegerField(default=1)
+    weight = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -144,6 +146,8 @@ class StudentShortAnswer(models.Model):
     question_text = models.CharField(max_length=500)
     answer = models.CharField(max_length=800)
     grade = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    attempt = attempt = models.PositiveIntegerField(default=0)
+    pending = models.BooleanField(default=True)
 
 class StudentModule(models.Model):
     id = models.AutoField(primary_key=True)
@@ -162,6 +166,7 @@ class Grade(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     grade = models.DecimalField(max_digits=5, decimal_places=2)
     attempt = models.PositiveIntegerField(default=0)
+    pending = models.BooleanField(default=True)
 
     def __str__(self):
         try:

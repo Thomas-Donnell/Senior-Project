@@ -14,12 +14,12 @@
         <div id="content">
             <div id="wrapper">
                 {% for grade in grades %}
-                    <h2>{{grade.quiz.title}}</h2>
+                    <h2>{{grade.module.title}}</h2>
                     {% for attempt in grade.grades %}
                         <div class="links">
                             <span>Attempt: {{attempt.attempt}}</span>
                             <span>{{attempt.grade}}%</span>
-                            <a href="{% url 'teachers:attemptView' courseId grade.quiz.id studentId attempt.attempt %}">View Attempt</a>
+                            <a href="{% url 'teachers:attemptView' courseId grade.module.id studentId attempt.attempt %}">View Attempt</a>
                         </div> 
                     {% endfor %}
                 {% endfor %}
