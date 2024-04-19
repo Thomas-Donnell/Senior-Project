@@ -18,7 +18,6 @@
                 <div id="quiz-wrapper-student">
                     <form class="viewForm" method="post">
                         {% csrf_token %}
-                        <!-- {% include 'teachers/PremadeModules/HydroelectricDam/Screen1.html' %} -->
                         {% for i in count %}
                             {% for section in sections %}
                                 {% if section.position == i %}
@@ -37,40 +36,56 @@
                             {% endfor %}
 
                             {% for question in questions %}
-                                {% if question.position == i %}
-                                    <div class="questions">
-                                        <h3>Question {{ forloop.counter }}</h3>
-                                        <p>{{ question.question_text }}</p>
-                                        {% if question.option1 %}
-                                            <label>
-                                                <input type="radio" class="dynamicInput" name="{{question.id}}" value="1"> {{ question.option1 }}
-                                            </label><br>
-                                        {% endif %}
-                                        {% if question.option2 %}
-                                            <label>
-                                                <input type="radio" class="dynamicInput" name="{{question.id}}" value="2"> {{ question.option2 }}
-                                            </label><br>
-                                        {% endif %}
-                                        {% if question.option3 %}
-                                            <label>
-                                                <input type="radio" class="dynamicInput" name="{{question.id}}" value="3"> {{ question.option3 }}
-                                            </label><br>
-                                        {% endif %}
-                                        {% if question.option4 %}
-                                            <label>
-                                                <input type="radio" class="dynamicInput" name="{{question.id}}" value="4"> {{ question.option4 }}
-                                            </label><br>
-                                        {% endif %}
-                                    </div>
+                                {% if question.question.position == i %}
+                                    {% if question.type == 'short' %}
+                                        <div class="questions">
+                                            <h3>Question {{ forloop.counter }}</h3>
+                                            <p>{{ question.question.question_text }}</p>
+                                            <textarea
+                                            rows="4"
+                                            name="{{question.question.id}}"
+                                            id="message"
+                                            placeholder="Enter Answer Here!"
+                                            class="textarea-input dynamicInput"
+                                            ></textarea>
+                                        </div>
+                                    {% elif question.type == 'multi'%}
+                                        <div class="questions">
+                                            <h3>Question {{ forloop.counter }}</h3>
+                                            <p>{{ question.question.question_text }}</p>
+                                            {% if question.question.option1 %}
+                                                <label>
+                                                    <input type="radio" class="dynamicInput" name="{{question.question.id}}" value="1"> {{ question.question.option1 }}
+                                                </label><br>
+                                            {% endif %}
+                                            {% if question.question.option2 %}
+                                                <label>
+                                                    <input type="radio" class="dynamicInput" name="{{question.question.id}}" value="2"> {{ question.question.option2 }}
+                                                </label><br>
+                                            {% endif %}
+                                            {% if question.question.option3 %}
+                                                <label>
+                                                    <input type="radio" class="dynamicInput" name="{{question.question.id}}" value="3"> {{ question.question.option3 }}
+                                                </label><br>
+                                            {% endif %}
+                                            {% if question.question.option4 %}
+                                                <label>
+                                                    <input type="radio" class="dynamicInput" name="{{question.question.id}}" value="4"> {{ question.question.option4 }}
+                                                </label><br>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% endfor %}
                         
                         
-                        
+                        <button id="submitbtn" class="btn">
+                            Submit
+                        </button>
                     </form>
+                    
                 </div>
-                
             </div>
         </div>
     </div>

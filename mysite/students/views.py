@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from teachers.forms import MyClassForm
-from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, Prefab
+from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -164,9 +164,68 @@ def moduleView(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     position = questions.count() + sections.count()
-    prefabs = Prefab.objects.all()
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
+    all_questions = []
+    i = 0
+    j = 0
+    while i < questions.count() and j < shortAnswers.count():
+        print(questions[i].position)
+        print(shortAnswers[j].position)
+        if questions[i].position < shortAnswers[j].position:
+            all_questions.append({"type":"multi", "question":questions[i]})
+            i += 1 
+        else:
+            all_questions.append({"type":"short", "question": shortAnswers[j]})
+            j += 1
+    while i < questions.count():
+        all_questions.append({"type":"multi", "question":questions[i]})
+        i += 1 
+    while j < shortAnswers.count():
+        all_questions.append({"type":"short", "question": shortAnswers[j]})
+        j += 1
     
-    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    attempt = 0 
+    try:
+        grades = Grade.objects.filter(module=module, student=request.user)
+        attempt = len(grades)
+
+    except ObjectDoesNotExist:
+        grades = None
+
+    if request.method == 'POST':
+        total_questions = questions.count() + shortAnswers.count()
+        correct = 0
+        for question in shortAnswers:
+            answer = request.POST.get(f"{question.id}")
+            StudentShortAnswer.objects.create(
+                module=module,
+                student=request.user,
+                question_text=question.question_text,
+                answer=answer,
+            )
+        for question in questions:
+            selected_answer = int(request.POST.get(f"{question.id}"))
+            StudentQuestion.objects.create(
+                module=module,
+                student=request.user,
+                module_question=question,
+                selected_answer=selected_answer,
+                correct_answer=question.correct_answer,
+                attempt=attempt + 1
+            )
+            if selected_answer == question.correct_answer:
+                correct += 1
+        total = correct/total_questions * 100
+        Grade.objects.create(
+            grade = total,
+            module=module, 
+            student=request.user,
+            attempt = attempt + 1
+        )
+        return redirect(reverse('students:moduleView', args=[id, course_id]))
+    
+    context = {"questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):

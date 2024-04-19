@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max, Subquery, OuterRef, Avg
 from django.urls import reverse
 from .forms import MyClassForm
-from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule, ShortAnswer
+from .models import MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, FinalGrade, Module, ModuleQuestion, ModuleSection, Prefab, StudentModule, ShortAnswer, StudentShortAnswer
 from users.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -284,7 +284,7 @@ def moduleView(request, id, course_id):
     while j < shortAnswers.count():
         all_questions.append({"type":"short", "question": shortAnswers[j]})
         j += 1
-    print(all_questions)
+
     prefabs = Prefab.objects.all()
     if request.method == 'POST':
         question = request.POST.get('question')
@@ -312,10 +312,29 @@ def studentModule(request, student_id, module_id):
     course_id = module.course.id
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
-    position = questions.count() + sections.count()
-    prefabs = Prefab.objects.all()
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    position = questions.count() + sections.count() + shortAnswers.count()
+    all_questions = []
+    i = 0
+    j = 0
+    while i < questions.count() and j < shortAnswers.count():
+        print(questions[i].position)
+        print(shortAnswers[j].position)
+        if questions[i].position < shortAnswers[j].position:
+            all_questions.append({"type":"multi", "question":questions[i]})
+            i += 1 
+        else:
+            all_questions.append({"type":"short", "question": shortAnswers[j]})
+            j += 1
+    while i < questions.count():
+        all_questions.append({"type":"multi", "question":questions[i]})
+        i += 1 
+    while j < shortAnswers.count():
+        all_questions.append({"type":"short", "question": shortAnswers[j]})
+        j += 1
+
     
-    context = {"studentId":student_id, "prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"studentId":student_id, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/studentmodule.html", context)
 
 def moduleOptions(request, id, course_id):
@@ -654,7 +673,12 @@ def moduleData(request, student_id, module_id):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({'input_values': input_values}, safe=False)
 
-
+def shortAnswerSubmissions(request, module_id, course_id):
+    module = Module.objects.get(pk=module_id)
+    short_answers = StudentShortAnswer.objects.filter(module=module)
+    print(short_answers)
+    context={'module':module,'courseId':course_id, 'shortAnswers':short_answers}
+    return render(request, "teachers/submissions.html", context)
     
 def screen1(request):
     return render(request, 'teachers/PremadeModules/HydroelectricDam/Screen1.html')

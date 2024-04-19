@@ -72,7 +72,7 @@ class ModuleSection(models.Model):
         return self.module.title
 
 class ModuleQuestion(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     question_text = models.CharField(max_length=200, null=True, blank=True)
     option1 = models.CharField(max_length=100, null=True)
@@ -112,7 +112,7 @@ class Question(models.Model):
         return self.quiz.title
     
 class ShortAnswer(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     question_text = models.CharField(max_length=500)
     position = models.PositiveIntegerField(default=0)
@@ -123,16 +123,28 @@ class ShortAnswer(models.Model):
     
 class StudentQuestion(models.Model):
     id = models.AutoField(primary_key=True)
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    module_question = models.ForeignKey(ModuleQuestion, on_delete=models.CASCADE, null=True)
     attempt = models.PositiveIntegerField(default=0)
     correct_answer = models.IntegerField(choices=[(1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')])
     selected_answer = models.IntegerField(choices=[(1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')])
 
     def __str__(self):
-        return self.quiz.title
-    
+        try:
+            return self.quiz.title
+        except:
+            return self.module.title
+class StudentShortAnswer(models.Model):
+    id = models.AutoField(primary_key=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, null=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    question_text = models.CharField(max_length=500)
+    answer = models.CharField(max_length=800)
+    grade = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
 class StudentModule(models.Model):
     id = models.AutoField(primary_key=True)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
@@ -145,13 +157,17 @@ class StudentModule(models.Model):
     
 class Grade(models.Model):
     id = models.AutoField(primary_key=True)
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, null=True)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     grade = models.DecimalField(max_digits=5, decimal_places=2)
     attempt = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.quiz.title
+        try:
+            return self.quiz.title
+        except:
+            return self.module.title
     
 class FinalGrade(models.Model):
     id = models.AutoField(primary_key=True)

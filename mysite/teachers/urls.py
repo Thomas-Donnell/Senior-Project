@@ -20,6 +20,7 @@ urlpatterns = [
     path("quiz_view/<str:id>/<str:course_id>/", views.quizView, name="quizView"),
     path("options/<str:id>/<str:course_id>/", views.options, name="options"),
     path("module_options/<str:id>/<str:course_id>/", views.moduleOptions, name="moduleOptions"),
+    path("submissions/<str:module_id>/<str:course_id>/", views.shortAnswerSubmissions, name="shortAnswerSubmissions"),
     path("delete_quiz/<str:id>/<str:course_id>/", views.deleteQuiz, name="deleteQuiz"),
     path("delete_module/<str:id>/<str:course_id>/", views.deleteModule, name="deleteModule"),
     re_path(r'^settings/(?P<url>.+)/$', views.settings, name='settings'),

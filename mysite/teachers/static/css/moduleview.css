@@ -13,6 +13,10 @@
     gap: 10px;
 
   }
+  #submitbtn{
+    align-self: flex-start;
+    margin-bottom: 10px;
+  }
   #selector div{
     color: #3999ff;
     cursor: pointer;
