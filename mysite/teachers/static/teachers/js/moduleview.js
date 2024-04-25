@@ -154,9 +154,9 @@ images.forEach(function(image) {
         selectedImageUrl = segments[segments.length - 1];
 
         console.log(selectedImageUrl);
-        if(selectedImages.has(image)){
+        if(selectedImages.has(selectedImageUrl)){
             image.classList.toggle('image');
-            selectedImages.delete(image);
+            selectedImages.delete(selectedImageUrl);
             deleteButton.remove();
             fileName.remove();
             buttonContainer.remove();
@@ -168,9 +168,10 @@ images.forEach(function(image) {
             buttonContainer.appendChild(fileName)
             buttonContainer.appendChild(deleteButton)
             filenameContainer.appendChild(buttonContainer)
-            selectedImages.add(image)
+            selectedImages.add(selectedImageUrl)
             deleteButton.addEventListener('click', function () {
-                selectedImages.delete(image);
+                image.classList.toggle('image');
+                selectedImages.delete(selectedImageUrl);
                 deleteButton.remove();
                 fileName.remove();
                 buttonContainer.remove();
@@ -199,5 +200,15 @@ const sectionForm = document.getElementById('sectionForm');
 const sectionSubmit = document.getElementById('sectionSubmit');
 
 sectionSubmit.addEventListener('click', function () {
+    selectedImagesArray = Array.from(selectedImages)
+    let finalString = ""
+    selectedImagesArray.forEach((image, index) => {
+        if (index < selectedImagesArray.length - 1) {
+            finalString += image + ','; 
+        }else{
+            finalString += image;
+        }
+    });
+    imageUrl.value = finalString;
     sectionForm.submit(); // Submit the form when the button is clicked
 });

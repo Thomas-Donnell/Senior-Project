@@ -339,6 +339,12 @@
     overflow: auto;
   }
 
+  .imageContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
   #templateWrapper{
     display: none;
     flex-wrap: wrap;

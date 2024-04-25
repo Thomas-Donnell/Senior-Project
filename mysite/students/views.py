@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from teachers.forms import MyClassForm
-from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer
+from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer, ModuleImage
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -161,7 +161,11 @@ def moduleHub(request, course_id):
 def moduleView(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
+    section_objects = []
     sections = ModuleSection.objects.filter(module=module)
+    for section in sections:
+        section_images = ModuleImage.objects.filter(section=section)
+        section_objects.append({"section": section, "images": section_images})
     position = questions.count() + sections.count()
     shortAnswers = ShortAnswer.objects.filter(module=module)
     position = questions.count() + sections.count() + shortAnswers.count()
@@ -233,7 +237,7 @@ def moduleView(request, id, course_id):
         )
         return redirect(reverse('students:moduleView', args=[id, course_id]))
     
-    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections": section_objects, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):
