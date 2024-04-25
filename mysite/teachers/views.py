@@ -238,9 +238,7 @@ def moduleSection(request, id, course_id):
             image=selected_file,
             position=position
         )
-        return redirect(reverse('teachers:moduleSection', args=[id, course_id]))
-    context = {"prefabs": prefabs, "questions":questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
-    return render(request, "teachers/moduleview.html", context)
+    return redirect(reverse('teachers:moduleView', args=[id, course_id]))
 
 def shortAnswer(request, id, course_id):
     module = Module.objects.get(pk=id)
