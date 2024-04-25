@@ -65,7 +65,6 @@ class Module(models.Model):
 class ModuleSection(models.Model):
     id = models.AutoField(primary_key=True)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank=True, upload_to='images/')
     defaultModule = models.CharField(max_length=100, null=True)
     text = models.CharField(max_length=200)
     position = models.PositiveIntegerField(default=0)
@@ -73,6 +72,14 @@ class ModuleSection(models.Model):
     def __str__(self):
         return self.module.title
 
+class ModuleImage(models.Model):
+    id = models.AutoField(primary_key=True)
+    section = models.ForeignKey(ModuleSection, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
+
+    def __str__(self):
+        return self.section.module.title
+    
 class ModuleQuestion(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)

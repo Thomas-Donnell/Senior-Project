@@ -395,3 +395,19 @@
   img{
     display: block;
   }
+
+  .buttonContainer{
+    display: flex;
+    gap: 5px;
+  }
+  .buttonContainer div{
+    cursor: pointer;
+  }
+
+  .buttonContainer div:hover{
+    opacity: .5;
+  }
+  .buttonContainer svg{
+    height: 20px;
+    width: 20px;
+  }

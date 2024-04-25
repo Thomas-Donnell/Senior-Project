@@ -225,7 +225,7 @@ def moduleSection(request, id, course_id):
         question = request.POST.get('question')
         image_url = request.POST.get('imageUrl')
         defaultModule = request.POST.get('defaultModule')
-        uploaded_file = request.FILES.get('upload')
+        uploaded_files = request.FILES.getlist('upload')
         selected_file = None;
         if(uploaded_file != None):
             selected_file = uploaded_file
