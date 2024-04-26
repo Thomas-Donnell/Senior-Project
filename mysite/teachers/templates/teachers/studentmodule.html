@@ -20,17 +20,22 @@
                         {% csrf_token %}
                         {% for i in count %}
                             {% for section in sections %}
-                                {% if section.position == i %}
-                                    {% if section.image %}
-                                    <img src="{{ section.image.url }}" alt="">
+                                {% if section.section.position == i %}
+                                    {% if section.images %}
+                                        <div class="imageContainer">
+                                            {% for image in section.images %}
+                                                <img src="{{image.image.url}}" alt="">
+                                            {% endfor %}
+                                        </div>
+                                        
                                     {% endif %}
-                                    {% if section.text != "" %}
-                                    <div class="sectionText">{{ section.text }}</div>
+                                    {% if section.section.text != "" %}
+                                    <div class="sectionText">{{ section.section.text }}</div>
                                     {% endif %}
-                                    {% if section.defaultModule %}
-                                    <div class="defaultModuleWrapper">
-                                        {% include section.defaultModule %}
-                                    </div>
+                                    {% if section.section.defaultModule %}
+                                        <div class="defaultModuleWrapper">
+                                            {% include section.section.defaultModule %}
+                                        </div>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

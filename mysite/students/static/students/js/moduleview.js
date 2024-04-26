@@ -61,9 +61,18 @@ document.addEventListener('DOMContentLoaded', async function() {
             inputValues = {};
         }
         
-        // Add event listeners to each input element
+        
+        const uniqueNamesSet = new Set();
+
+        // Add unique names to the set
         inputElements.forEach(input => {
-            // Add event listener for "input" event on each input element
+            uniqueNamesSet.add(input.name);
+        });
+
+        let inputElementsLength = uniqueNamesSet.size
+
+        for (let i = 0; i < inputElements.length; i++){
+            let input = inputElements[i];
             input.addEventListener('input', function() {
                 // Update the inputValues object with the new input value, name, and ID
                 inputValues[input.name] = {'value':input.value, 'type':input.type};
@@ -71,9 +80,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                     delete inputValues[input.name];
                 }
                 var length = Object.keys(inputValues).length;
-                progress = (length/inputElements.length) * 100;
+                progress = (length/inputElementsLength) * 100;
             });
-        });
+        }
         // Continue with the rest of your code that depends on inputValues
     } catch (error) {
         console.error('Error during data fetching and processing:', error);

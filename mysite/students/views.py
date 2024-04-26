@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from teachers.forms import MyClassForm
-from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer
+from teachers.models import FinalGrade, MyClass, EnrolledUser, Discussion, Reply, Quiz, Question, Grade, Alert, StudentQuestion, Module, ModuleQuestion, ModuleSection, ShortAnswer, StudentShortAnswer, ModuleImage
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -162,9 +162,23 @@ def moduleView(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
-    position = questions.count() + sections.count()
     shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
+    section_objects = []
+    for section in sections:
+        section_images = ModuleImage.objects.filter(section=section)
+        section_objects.append({"section": section, "images": section_images})
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
+    
     all_questions = []
     i = 0
     j = 0
@@ -233,7 +247,7 @@ def moduleView(request, id, course_id):
         )
         return redirect(reverse('students:moduleView', args=[id, course_id]))
     
-    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"attempt":attempt, "grade":highest_grade, "questions":all_questions, "sections": section_objects, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "students/moduleview.html", context)
 
 def quizHub(request, course_id):

@@ -37,6 +37,9 @@ urlpatterns = [
     path("module_data/<int:student_id>/<str:module_id>/", views.moduleData, name="moduleData"),
     path("student_module/<int:student_id>/<str:module_id>/", views.studentModule, name="studentModule"),
     path("grade_submission/<int:id>/", views.gradeSubmission, name="gradeSubmission"),
+    path("delete_section/<int:section_id>/", views.deleteSection, name="deleteSection"),
+    path("delete_shortanswer/<str:id>/", views.deleteShortAnswer, name="deleteShortAnswer"),
+    path("delete_multichoice/<str:id>/", views.deleteMultiChoice, name="deleteMultiChoice"),
     path('screen1/', views.screen1, name='screen1'),
     path('animation1/', views.animation1, name='animation1'),
 ]   

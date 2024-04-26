@@ -26,15 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if(response.ok){
-                    resolve(data);
+                    console.log("success")
                 }else{
-                    reject(error);
+                    console.log("error");
                 }
                 
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                reject(error);
             });
 
             listItem.remove()
