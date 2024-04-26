@@ -154,22 +154,31 @@
                         {% for i in count %}
                             {% for section in sections %}
                                 {% if section.section.position == i %}
-                                    {% if section.images %}
+                                    <div class="sections">
+                                        <div class="editButton" data-target="{{section.section.id}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 13a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"/></svg>
+                                        </div>
+                                        <div class="kebab-dropdown" id="{{section.section.id}}" style="display: none;">
+                                            <div class="edit-section">Edit Section</div>
+                                            <div class="delete-section" data-sectionId="{{section.section.id}}">Delete</div>
+                                        </div>
+                                        {% if section.images %}
                                         <div class="imageContainer">
                                             {% for image in section.images %}
                                                 <img src="{{image.image.url}}" alt="">
                                             {% endfor %}
                                         </div>
                                         
-                                    {% endif %}
-                                    {% if section.section.text != "" %}
-                                    <div class="sectionText">{{ section.section.text }}</div>
-                                    {% endif %}
-                                    {% if section.section.defaultModule %}
-                                    <div class="defaultModuleWrapper">
-                                        {% include section.section.defaultModule %}
+                                        {% endif %}
+                                        {% if section.section.text != "" %}
+                                        <div class="sectionText">{{ section.section.text }}</div>
+                                        {% endif %}
+                                        {% if section.section.defaultModule %}
+                                        <div class="defaultModuleWrapper">
+                                            {% include section.section.defaultModule %}
+                                        </div>
+                                        {% endif %}
                                     </div>
-                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
 
@@ -177,6 +186,13 @@
                                 {% if question.question.position == i %}
                                     {% if question.type == 'short' %}
                                         <div class="questions">
+                                            <div class="editButton" data-target="{{question.question.id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 13a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"/></svg>
+                                            </div>
+                                            <div class="kebab-dropdown" id="{{question.question.id}}" style="display: none;">
+                                                <div class="edit-shortAnswer">Edit Section</div>
+                                                <div class="delete-shortAnswer" data-shortAnswerId="{{question.question.id}}">Delete</div>
+                                            </div>
                                             <h3>Question {{ forloop.counter }}</h3>
                                             <p>{{ question.question.question_text }}</p>
                                             <textarea
@@ -188,7 +204,14 @@
                                             ></textarea>
                                         </div>
                                     {% elif question.type == 'multi' %}
-                                        <div class="questions">
+                                        <div class="questions"> 
+                                            <div class="editButton" data-target="{{question.question.id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 13a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"/></svg>
+                                            </div>
+                                            <div class="kebab-dropdown" id="{{question.question.id}}" style="display: none;">
+                                                <div class="edit-multi">Edit Section</div>
+                                                <div class="delete-multi" data-multipleChoiceId="{{question.question.id}}">Delete</div>
+                                            </div>
                                             <h3>Question {{ forloop.counter }}</h3>
                                             <p>{{ question.question.question_text }}</p>
                                             {% if question.question.option1 %}

@@ -219,8 +219,18 @@ def moduleSection(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
-    prefabs = Prefab.objects.all()
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
+
     if request.method == 'POST':
         question = request.POST.get('question')
         image_string = request.POST.get('imageUrl')
@@ -252,7 +262,18 @@ def shortAnswer(request, id, course_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
+
     if request.method == 'POST':
         question = request.POST.get('question')
         ShortAnswer.objects.create(
@@ -272,7 +293,6 @@ def moduleView(request, id, course_id):
         section_objects.append({"section": section, "images": section_images})
 
     shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
     all_questions = []
     i = 0
     j = 0
@@ -291,6 +311,17 @@ def moduleView(request, id, course_id):
     while j < shortAnswers.count():
         all_questions.append({"type":"short", "question": shortAnswers[j]})
         j += 1
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
 
     prefabs = Prefab.objects.all()
     if request.method == 'POST':
@@ -320,7 +351,22 @@ def studentModule(request, student_id, module_id):
     questions = ModuleQuestion.objects.filter(module=module)
     sections = ModuleSection.objects.filter(module=module)
     shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
+    section_objects = []
+    for section in sections:
+        section_images = ModuleImage.objects.filter(section=section)
+        section_objects.append({"section": section, "images": section_images})
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
+
     all_questions = []
     i = 0
     j = 0
@@ -341,7 +387,7 @@ def studentModule(request, student_id, module_id):
         j += 1
 
     
-    context = {"studentId":student_id, "questions":all_questions, "sections":sections, "module":module, "courseId":course_id, "count":range(position)}
+    context = {"studentId":student_id, "questions":all_questions, "sections": section_objects, "module":module, "courseId":course_id, "count":range(position)}
     return render(request, "teachers/studentmodule.html", context)
 
 def moduleOptions(request, id, course_id):
@@ -722,3 +768,27 @@ def screen1(request):
 
 def animation1(request):
     return render(request, 'teachers/PremadeModules/HydroelectricDam/animation1.html')
+
+def deleteSection(request, section_id):
+    section = ModuleSection.objects.get(pk=section_id)
+            
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        section.delete()
+        
+        return JsonResponse({'message': 'Grade submission successful'}, status = 200)
+
+def deleteShortAnswer(request, id):
+    shortAnswer = ShortAnswer.objects.get(pk=id)
+            
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        shortAnswer.delete()
+        
+        return JsonResponse({'message': 'Grade submission successful'}, status = 200)
+    
+def deleteMultiChoice(request, id):
+    question = ModuleQuestion.objects.get(pk=id)
+            
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        question.delete()
+        
+        return JsonResponse({'message': 'Grade submission successful'}, status = 200)

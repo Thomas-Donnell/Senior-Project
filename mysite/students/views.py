@@ -161,14 +161,24 @@ def moduleHub(request, course_id):
 def moduleView(request, id, course_id):
     module = Module.objects.get(pk=id)
     questions = ModuleQuestion.objects.filter(module=module)
-    section_objects = []
     sections = ModuleSection.objects.filter(module=module)
+    shortAnswers = ShortAnswer.objects.filter(module=module)
+    section_objects = []
     for section in sections:
         section_images = ModuleImage.objects.filter(section=section)
         section_objects.append({"section": section, "images": section_images})
-    position = questions.count() + sections.count()
-    shortAnswers = ShortAnswer.objects.filter(module=module)
-    position = questions.count() + sections.count() + shortAnswers.count()
+
+    max_section = 0
+    max_question = 0
+    max_shortAnswer = 0
+    if sections.exists():
+        max_section = sections.order_by('-position').first().position
+    if questions.exists():
+        max_question = questions.order_by('-position').first().position
+    if shortAnswers.exists():
+        max_shortAnswer = shortAnswers.order_by('-position').first().position
+    position = max(max_section,max_question,max_shortAnswer) + 1
+    
     all_questions = []
     i = 0
     j = 0

@@ -212,3 +212,98 @@ sectionSubmit.addEventListener('click', function () {
     imageUrl.value = finalString;
     sectionForm.submit(); // Submit the form when the button is clicked
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteSectionBtns = document.querySelectorAll('.delete-section');
+    const deleteShortAnswerBtns = document.querySelectorAll('.delete-shortAnswer');
+    const deleteMultiBtns = document.querySelectorAll('.delete-multi');
+    const editBtns = document.querySelectorAll('.editButton');
+    editBtns.forEach(editBtn => {
+        editBtn.addEventListener('click', function(){
+            let dropdownId = editBtn.getAttribute('data-target');
+            const dropdown = document.getElementById(dropdownId);
+            console.log(dropdown.style.display)
+            if(dropdown.style.display === 'none'){
+                dropdown.style.display = 'flex';
+            }else{
+                dropdown.style.display = 'none';
+            }
+        });
+    });
+    deleteSectionBtns.forEach(deleteSectionBtn => {
+        deleteSectionBtn.addEventListener('click', function(){
+            let sectionId = deleteSectionBtn.getAttribute('data-sectionId');
+            fetch('/teachers/delete_section/' + sectionId + '/', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+
+            })
+            .then(response => {
+                if(response.ok){
+                    console.log('success');
+                }else{
+                    console.log('error fetching data');
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+            deleteSectionBtn.parentNode.parentNode.remove();
+        });
+        
+    });
+
+    deleteShortAnswerBtns.forEach(deleteShortAnswerBtn => {
+        deleteShortAnswerBtn.addEventListener('click', function(){
+            let shortAnswerId = deleteShortAnswerBtn.getAttribute('data-shortAnswerId');
+            fetch('/teachers/delete_shortanswer/' + shortAnswerId + '/', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+
+            })
+            .then(response => {
+                if(response.ok){
+                    console.log('success');
+                }else{
+                    console.log('error fetching data');
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+            deleteShortAnswerBtn.parentNode.parentNode.remove();
+        });
+        
+    });
+
+    deleteMultiBtns.forEach(deleteMultiBtn => {
+        deleteMultiBtn.addEventListener('click', function(){
+            let multipleChoiceId = deleteMultiBtn.getAttribute('data-multipleChoiceId');
+            fetch('/teachers/delete_multichoice/' + multipleChoiceId + '/', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+
+            })
+            .then(response => {
+                if(response.ok){
+                    console.log('success');
+                }else{
+                    console.log('error fetching data');
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+            deleteMultiBtn.parentNode.parentNode.remove();
+        });
+    });
+});
