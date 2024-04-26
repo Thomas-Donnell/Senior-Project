@@ -215,15 +215,16 @@ W = 10 N X 20 meters = 200 N*m or 200 Joules
     <section id="screen10">
         <h2>Setting up the Dam:</h2>
         <div class="ExperimentingContent">
-            <p><span class="highlight">Students should be able to 
-                experiment with differing lengths of PVC pipe here.</span></p>
+            <p><span class="highlight">How long do you want the PVC pipe to be? </span></p>
+
+            <div id="pvcPipe" style="width: 100px; background-color: gray; margin: 20px auto;"></div>
+
 
             <label for="heightSetPVC">Height of PVC Pipe (inches):</label>
             <input type="number" class="dynamicInput" id="heightSetPVC" name="heightSetPVC">
         
             <button type="button" onclick="setPVCHeight()">Set Height</button>
         </div>
-
     </section>
 
     <section id="screen11">
@@ -338,6 +339,7 @@ W = 10 N X 20 meters = 200 N*m or 200 Joules
         
                 <p>Result: <span id="studEfficiencyResult">0.00</span> Watts</p>
                 <p>Your <span id="diodeResult">----</span></p>
+                <div id="diodeVisual" class="diodeState"></div>
             </div>
         </div>
     </section>
