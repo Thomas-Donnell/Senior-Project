@@ -21,4 +21,7 @@ STEM TREE: Education Platform
 # :notebook: Important Notes
 ### When Creating a new Default learning module, one must follow these steps:
 * Create a Blank HTML page without inheriting any base template
-* Every input that you wish to save progress for should inherit the "dynamicInput" html class and should have a unique name. For example, the input names in "module1" should use the prefix "m1".
+* Every input that you wish to save progress for should inherit the "dynamicInput" html class and should have a unique name. For example, the input names in "module1" should use the prefix "m1". 
+   * ![pic](screenshots/dynamicinput.png)
+* To include it in the "moduleview" template add the path as an attribute to the template wrapper
+   * ![pic](screenshots/template.png)
