@@ -1,9 +1,9 @@
-Senior Project
+STEM TREE: Education Platform
 =============
 ## [Demo Site](https://clarkdonnell.pythonanywhere.com/)
 # 🚀 Getting Started
 ### This project uses pipenv as its package manager <br><br> After cloning the directory follow these steps...
-1. **install the pipenv package manager**
+1. **Install the pipenv package manager**
     * ![pic](screenshots/pipenvinstall.png)
 2. **Install the dependencies, Make sure you are in the project directory**
     * ![pic](screenshots/installdependants.png)
@@ -17,3 +17,11 @@ Senior Project
     * ![pic](screenshots/runserver.png)
 
 ### Congratulations You Did It :tada:
+
+# :notebook: Important Notes
+### When Creating a new Default learning module, one must follow these steps:
+* Create a Blank HTML page without inheriting any base template
+* Every input that you wish to save progress for should inherit the "dynamicInput" html class and should have a unique name. For example, the input names in "module1" should use the prefix "m1". 
+   * ![pic](screenshots/dynamicinput.png)
+* To include it in the "moduleview" template add the path as an attribute to the template wrapper
+   * ![pic](screenshots/template.png)
